@@ -72,7 +72,7 @@ function setupRequired() {
     sudo pacman -Sy go
 
     # Install Code-OSS
-    sudo pacman -Sy code
+    #sudo pacman -Sy code
 
     # Install kvantum manager
     sudo pacman -Sy kvantum-qt5
@@ -96,6 +96,9 @@ function setupRequired() {
     pamac build otf-san-francisco
     pamac build nerd-fonts-fira-code
 
+    # Install vscode
+    pamac build visual-studio-code-bin
+    
     # Install google-chrome
     pamac build google-chrome
 
