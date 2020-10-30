@@ -89,9 +89,6 @@ function setupRequired() {
 
     # Install and setup docker
     sudo pacman -Sy docker docker-compose
-    sudo usermod -aG docker $USER
-    sudo systemctl start docker
-    sudo systemctl enable docker
 
     ## AUR builds and installs 
     # Install fonts
@@ -99,6 +96,8 @@ function setupRequired() {
     pamac build ttf-meslo-nerd-font-powerlevel10k
     pamac build otf-san-francisco
     pamac build nerd-fonts-fira-code
+    # Place fonts file
+    sudo cp ./fonts.conf /etc/fonts/local.conf
 
     # Install vscode
     pamac build visual-studio-code-bin
@@ -110,10 +109,20 @@ function setupRequired() {
     pamac build slack-desktop
 
     # Install Mailspring
+    sudo -Sy gnome-keyring # Dependency
     pamac build mailspring
 
     # Install spotify
     pamac build spotify
+
+    log "Enabling installed components..."
+    log "Setting up docker..."
+    sudo usermod -aG docker $USER
+    sudo systemctl start docker
+    sudo systemctl enable docker
+
+    log "Setting up fonts..."
+    fc-cache
 }
 
 function setupKube() {
@@ -136,7 +145,9 @@ function setupKube() {
 }
 
 function setupKDE() {
-    log "TODO"
+    log "Setting up KDE..."
+    cp ./kde/aurorae ./kde/color-schemes ./kde/plasma ./kde/konsole ~/.local/share
+    log "Files placed to the destination... Please select them from the kde settings panel"
 }
 
 
