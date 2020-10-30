@@ -95,7 +95,7 @@ function setupRequired() {
     pamac build ttf-ms-fonts
     pamac build ttf-meslo-nerd-font-powerlevel10k
     pamac build otf-san-francisco
-    pamac build nerd-fonts-fira-code
+    sudo pacman -Sy ttf-fira-code
     # Place fonts file
     sudo cp ./fonts.conf /etc/fonts/local.conf
 
@@ -123,6 +123,7 @@ function setupRequired() {
 
     log "Setting up fonts..."
     fc-cache
+    log "Completed basic setup"
 }
 
 function setupKube() {
@@ -146,7 +147,7 @@ function setupKube() {
 
 function setupKDE() {
     log "Setting up KDE..."
-    cp ./kde/aurorae ./kde/color-schemes ./kde/plasma ./kde/konsole ~/.local/share
+    cp -r ./kde/aurorae ./kde/color-schemes ./kde/plasma ./kde/konsole ~/.local/share
     log "Files placed to the destination... Please select them from the kde settings panel"
 }
 
@@ -164,23 +165,24 @@ if [ $setup_kube -eq 0 ]; then
     warn "Setting up kubernetes only"
     setupKube
     exit 0
-if
+fi
 
-if [ $setup_kube -eq 0 ]; then
+if [ $setup_kde -eq 0 ]; then
     warn "Setting up KDE only"
-    setupkde
+    setupKDE
     exit 0
-if
+fi
 
 if [ $setup_basic -eq 0 ]; then
     warn "Setting up basic only"
     setupRequired
     exit 0
-if
+fi
 
 if [ $setup_full -eq 0 ]; then
+    log "Full setup started"
     setupRequired
     setupkde
     setupKube
     exit 0
-if
+fi
