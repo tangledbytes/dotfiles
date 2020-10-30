@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+	echo "ERROR: Pass the drive name as parameter"
+	exit 1
+fi
+
+
+# Eject the mounted drive
+umount $1 &> /dev/null
+
+if [ $? -ne 0 ]; then
+	echo "Failed to eject the drive..."
+	echo "Attempting to kill the associated processes..."
+	
+	# Get all the pids where the hard disk is available
+	lsof | grep "$1" | awk '{print $2}' | xargs kill -15
+
+	if [ $? -ne 0 ]; then
+		echo "Failed to unmount the drive"
+		exit 2
+	else
+		echo "Successfully unmounted $1"
+	fi
+else
+	echo "Successfully unmounted $1"
+fi

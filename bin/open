@@ -1,0 +1,8 @@
+#!/bin/bash
+
+xdg-open "$@" &> /dev/null
+
+if [ $? -ne 0 ]; then
+	echo "An error occured while opening the file"
+	exit $?
+fi

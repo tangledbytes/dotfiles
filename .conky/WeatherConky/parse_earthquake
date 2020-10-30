@@ -1,0 +1,39 @@
+#!/bin/bash
+set -eu
+
+earthquake=~/".cache/earthquake.json"
+
+get_earthquake_list() {
+    local MsgDate=""
+    local Mag=0
+    local Place=0
+    local Tsunami=0
+    local idx=0
+    local DateRaw=0
+    local total_itens=$(jq ".metadata.count" "$earthquake")
+    local Alerta=0
+
+    [[ $total_itens -gt 12 ]] && total_itens=12
+
+    while [ $idx -lt $total_itens ]; do
+        Alerta=""
+        DateRaw=$(jq ".features[$idx].properties.time" "$earthquake")
+        Mag=$(jq ".features[$idx].properties.mag" "$earthquake")
+        Place=$(jq ".features[$idx].properties.place" "$earthquake")
+        Tsunami=$(jq ".features[$idx].properties.tsunami" "$earthquake")
+        [[ $Tsunami != 0 ]] && Alerta="(Alerta de Tsuname)"
+        MsgDate=$(date -d "@${DateRaw::-3}" +"%d %b - %-0H:%M")
+        echo "   $MsgDate - $Mag - $Place$Alerta"
+        (( idx++ ))
+    done
+#echo $MsgDate
+}
+
+main () {
+#    MaxOccurences="$1"
+#    Magnitude="$2"
+
+    echo "$(get_earthquake_list )"
+}
+
+[[ -r $earthquake ]] && main "$@"

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "blacklist uvcvideo" | sudo tee /etc/modprobe.d/disable_webcam.conf > /dev/null

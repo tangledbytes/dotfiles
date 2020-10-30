@@ -1,0 +1,79 @@
+conky.config = {
+	background = false,
+	update_interval = 10,
+	double_buffer = true,
+	no_buffers = true,
+
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_colour = '#000000',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_title = 'weather_conky',
+	own_window_argb_visual = true,
+	own_window_argb_value = 153,
+	own_window_transparent = false,
+
+	gap_x = 20,
+	gap_y = 0,
+
+	border_inner_margin = 15,
+	border_outer_margin = 0,
+
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+	alignment = 'middle_left',
+
+	use_xft = true,
+	xftalpha = 0,
+	font = 'Roboto:size=10',
+
+	override_utf8_locale = true,
+
+	default_color = '#FFFFFF',
+
+	color1 = '#15CC66',
+	color2 = '#00d7ff',
+
+-------------------------------------
+--  API Key
+-------------------------------------
+template6="e63fb52170ba40f8ab28c8e2d2c8e585",
+
+
+-------------------------------------
+--  City ID
+-------------------------------------
+template7="1261481",
+
+
+-------------------------------------
+--  Temp Unit (default, metric, imperial)
+-------------------------------------
+template8="metric",
+
+
+-------------------------------------
+--  Locale (e.g. "es_ES.UTF-8")
+--  Leave empty for default
+-------------------------------------
+template9=""
+
+};
+
+conky.text = [[
+${execi 1800 ~/.conky/WeatherConky/get_weather ${template6} ${template7} ${template8} ${template9}}
+${font Roboto:size=15}${execi 900 jq -r .name ~/.cache/WeatherConky/weather.json}, ${execi 900 jq -r .sys.country ~/.cache/WeatherConky/weather.json}${font}${color1}${font Roboto:size=60}${alignr}${execi 900 jq -r .main.temp ~/.cache/WeatherConky/weather.json | awk '{print int($1+0.5)}' # round num}°${font}${color}${voffset -10}
+${font Roboto:size=10}${execi 900 cp -f ~/.conky/WeatherConky/icons/64/$(jq .weather[0].id ~/.cache/WeatherConky/weather.json).png ~/.cache/WeatherConky/weather.png}${image ~/.cache/WeatherConky/weather.png -p 0,45 -s 60x60 -n}
+
+${execi 900 jq -r .weather[0].description ~/.cache/WeatherConky/weather.json | sed "s|\<.|\U&|g"}${image ~/.conky/WeatherConky/icons/wind.png -p 0,156 -s 15x15}${voffset 5}
+${goto 35}${execi 900 jq -r .wind.speed ~/.cache/WeatherConky/weather.json} m/s${goto 195}Sunrise:      ${execi 900 date -d "@$(jq -r .sys.sunrise ~/.cache/WeatherConky/weather.json)" +%-0H:%M}${image ~/.conky/WeatherConky/icons/humidity.png -p 0,172 -s 15x15}
+${goto 35}${execi 900 jq -r .main.humidity ~/.cache/WeatherConky/weather.json | awk '{print int($1+0.5)}' # round num}%${goto 195}Sunset:       ${execi 900 date -d "@$(jq -r .sys.sunset ~/.cache/WeatherConky/weather.json)" +%-0H:%M}${voffset 15}
+${color2}${goto 18}${execi 900 date -d +1day +%^a}${goto 88}${execi 900 date -d +2day +%^a}${goto 158}${execi 900 date -d +3day +%^a}${goto 228}${execi 900 date -d +4day +%^a}${goto 298}${execi 900 date -d +5day +%^a}${color}
+
+${execi 900 cp -f ~/.conky/WeatherConky/icons/32/$(~/.conky/WeatherConky/parse_weather 'ico' '.weather[0].icon' '1').png ~/.cache/WeatherConky/weather-1.png}${image ~/.cache/WeatherConky/weather-1.png -p 0,225 -s 30x30 -n}${execi 900 cp -f ~/.conky/WeatherConky/icons/32/$(~/.conky/WeatherConky/parse_weather 'ico' '.weather[0].icon' '2').png ~/.cache/WeatherConky/weather-2.png}${image ~/.cache/WeatherConky/weather-2.png -p 70,225 -s 30x30 -n}${execi 900 cp -f ~/.conky/WeatherConky/icons/32/$(~/.conky/WeatherConky/parse_weather 'ico' '.weather[0].icon' '3').png ~/.cache/WeatherConky/weather-3.png}${image ~/.cache/WeatherConky/weather-3.png -p 140,225 -s 30x30 -n}${execi 900 cp -f ~/.conky/WeatherConky/icons/32/$(~/.conky/WeatherConky/parse_weather 'ico' '.weather[0].icon' '4').png ~/.cache/WeatherConky/weather-4.png}${image ~/.cache/WeatherConky/weather-4.png -p 210,225 -s 30x30 -n}${execi 900 cp -f ~/.conky/WeatherConky/icons/32/$(~/.conky/WeatherConky/parse_weather 'ico' '.weather[0].icon' '5').png ~/.cache/WeatherConky/weather-5.png}${image ~/.cache/WeatherConky/weather-5.png -p 280,225 -s 30x30 -n}${voffset 20}${goto 20}${execi 900 ~/.conky/WeatherConky/parse_weather 'max' '.main.temp_max' '1'}°${goto 90}${execi 900 ~/.conky/WeatherConky/parse_weather 'max' '.main.temp_max' '2'}°${goto 160}${execi 900 ~/.conky/WeatherConky/parse_weather 'max' '.main.temp_max' '3'}°${goto 230}${execi 900 ~/.conky/WeatherConky/parse_weather 'max' '.main.temp_max' '4'}°${goto 300}${execi 900 ~/.conky/WeatherConky/parse_weather 'max' '.main.temp_max' '5'}°
+${goto 20}${execi 900 ~/.conky/WeatherConky/parse_weather 'min' '.main.temp_min' '1'}°${goto 90}${execi 900 ~/.conky/WeatherConky/parse_weather 'min' '.main.temp_min' '2'}°${goto 160}${execi 900 ~/.conky/WeatherConky/parse_weather 'min' '.main.temp_min' '3'}°${goto 230}${execi 900 ~/.conky/WeatherConky/parse_weather 'min' '.main.temp_min' '4'}°${goto 300}${execi 900 ~/.conky/WeatherConky/parse_weather 'min' '.main.temp_min' '5'}°
+${font Roboto:size=6}${execi 900 date -d "@$(jq -r .dt ~/.cache/WeatherConky/weather.json)" +%c}${font}
+]];

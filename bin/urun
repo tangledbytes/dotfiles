@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function isCharging(){
+	batteryStatus=$(cat /sys/class/power_supply/BAT0/status)
+	
+	if [ "$batteryStatus" = "Discharging" ]; then 
+		return 1
+	fi
+
+	return 0
+}
+
+if isCharging ; then 
+	# If laptop is getting charged then the application on GPU
+	/usr/bin/prime-run "$@"
+else 
+	$@
+fi

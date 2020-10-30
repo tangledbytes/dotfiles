@@ -1,0 +1,4 @@
+#!/bin/bash
+
+query=${1// /\+}
+open "https://google.com/search?q=$query"

@@ -1,0 +1,205 @@
+#!/bin/bash
+
+# ===================================== FUNCTIONS ===========================================
+# Credit: https://github.com/ppo/bash-colors
+c() { echo "$1" | sed -E "s/(^|[^-_])([krgybmcw])/\1-\2/;s/(^$|0)/!0¡/;s/([BUFNL])/!\1¡/g;s/([-_])([krgybmcw])/!\1\2¡/g;y/BUFN-_krgybmcw/14573401234567/;s/L/22/;s/!/\\\033[/g;s/¡/m/g"; }
+
+# Logs the argument
+log ()
+{
+    echo -e "$(c 0g)[CPP RUNNER]:$(c) $(c 0gL)$@$(c)"
+}
+
+# Log warning
+warn()
+{
+    echo -e "$(c 0y)[CPP RUNNER]:$(c) $(c 0yL)$@$(c)"
+}
+
+# Log error
+error()
+{
+    echo -e "$(c 0r)[CPP RUNNER]:$(c) $(c 0rL)$@$(c)"
+}
+
+# Banner
+banner()
+{
+    echo -e "$(c gB)$@$(c)"
+}
+
+help()
+{
+    echo "Use: ./run.sh <flags> [file name to compiled and run]"
+    echo ""
+    echo "Supported flags:"
+    echo "-f,               Pass Makefile (Defaults to Makefile, if opted)"
+    echo "-h, --help        See help"
+    echo "  , --no-mem      Disables valgrind"
+    echo "-o, --out-file    Set name of default compiled file name, default it a.out"
+    echo "-w, --watch       Set directories to be watched (Multiple are supported if given inside \"\")"
+    echo "  , --rtflags     Runtime flags for the compiled binary"
+    echo "  , --clean       Clean generated files"
+    echo ""
+    echo "Example: ./run.sh -w=./lib/** --out-file=out main.cpp"
+    exit 0
+}
+
+# Parses the arguments passed
+check_argument()
+{
+    for i in "$@"
+    do
+        VALUE=$(echo $i | awk -F= '{print $2}')
+        case "$i" in
+            --no-mem) no_mem=1
+            ;;
+            -w=*| --watch=*) watch=$VALUE
+            ;;
+            -o=*| --out-file=*) out_file=$VALUE
+            ;;
+            -f=*| -f) assign_makefile $VALUE
+            ;;
+            --rtflags=*) rtflags=$VALUE
+            ;;
+            --clean) clean=0
+            ;;
+            -h| --help) help
+            ;;
+            -*|--*) error "Invalid flag! $i"; close 1
+            ;;
+            *) in_file=$i
+            ;;
+        esac
+    done
+}
+
+# Assign makefile name
+assign_makefile()
+{
+    if [ "$1" = "" ]; then makefile="Makefile"
+    else makefile="$1"
+    fi
+    
+    if ! test -f $makefile; then
+        error "Couldn't find \"$makefile\""
+        warn "Looking for default \"Makefile\"..."
+        if test -f Makefile; then
+            makefile="Makefile"
+            log "Found \"$makefile\""
+            log "Proceeding with default \"$makefile\"..."
+        else
+            error "Couldn't find default \"Makefile\""
+            close 2;
+        fi
+    fi
+}
+
+# Closes with a certain exit code
+close()
+{
+    if [ $# -eq 0 ]; then
+        log "EXITTING..."
+        exit 0;
+    else
+        local msg="EXITTED WITH CODE $1"
+        if [ $1 -ne 0 ]; then error $msg; else log $msg; fi
+        exit $1
+    fi
+}
+
+# Runs the cpp code
+cpp_runner()
+{
+    # Log compile process
+    log "Compiling..."
+    
+    # Compile the file
+    if [ "$makefile" != "" ]; then
+        make -f "$makefile"
+    else
+        clang++ -Wall -std=c++17 -o "$out_file" $in_file
+    fi
+    
+    # Exit if above process didn't suceeded properly
+    if [ $? -ne 0 ]; then
+        error "Failed to compile"
+        return 1
+    fi
+    
+    # Log running process
+    log "Running \"$out_file\"..."
+    
+    if [ $no_mem -eq 1 ]; then
+        warn "Opted no memory leak checks"
+        ./$out_file $rtflags
+    else
+        # Check if valgrind exists
+        if command -v valgrind >/dev/null 2>&1; then
+            valgrind --leak-check=full --track-origins=yes ./$out_file $rtflags
+        else
+            warn "Failed to find valgrind... skipping memory checks"
+            ./$out_file $rtflags
+        fi
+    fi
+}
+
+cleanup()
+{
+    if [ $clean -eq 1 ]; then
+        return
+    fi
+
+	log "Cleaning up files"
+	rm vgcore.* $out_file >/dev/null 2>&1
+	log "Removed generated files"
+}
+
+# =============================== GLOBAL VARIABLES ==================================
+# Default output filename
+out_file="a.out"
+
+# Default memory check
+no_mem=0
+
+# Default file name
+in_file="main.cpp"
+
+# Default runtime flags
+rtflags=""
+
+# Don't clean by default
+clean=1
+
+# ===================================================================================
+
+# Default file/directory to watch
+watch=$in_file
+
+# Parse arguments
+check_argument "$@"
+
+# Check if inotify exists on the system/container
+if command -v inotifywait >/dev/null 2>&1; then
+    # echo ""
+    # banner "=================== [CPP RUNNER] ========================"
+    # echo ""
+    
+    log "Monitoring changes..."
+    log "Watching $watch for changes..."
+    cpp_runner "$@"
+    echo ""
+	cleanup
+    log "Watching $watch for changes..."
+    while inotifywait -q -r -e modify $watch >/dev/null 2>&1; do
+        cpp_runner "$@"
+        echo ""
+		cleanup
+        log "Watching $watch for changes..."
+    done
+else
+    warn "inotify not found"
+    warn "Proceeding without monitoring"
+    cpp_runner "$@"
+    cleanup
+fi
