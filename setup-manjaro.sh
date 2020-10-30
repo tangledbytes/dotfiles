@@ -32,9 +32,13 @@ check_argument()
     do
         VALUE=$(echo $i | awk -F= '{print $2}')
         case "$i" in
+            -f| --full) full=0
+            ;;
             --setup-kube) setup_kube=0
             ;;
-            --setup-kube-only) setup_kube_only=0
+            --setup-kde) setup_kde=0
+            ;;
+            --setup-basic) setup_basic=0
             ;;
             -h| --help) help
             ;;
@@ -50,8 +54,11 @@ help() {
     echo ""
     echo "Flags:"
     echo "-h, --help            Will Print help for the script"
+    echo "-f, --full            Full Will perform a full setup"
+    echo "  , --setup-kde       Will setup kde config on the system"
     echo "  , --setup-kube      Will setup kubernetes on the system"
-    echo "  , --setup-kube-only Will setup kubernetes only"
+    echo "  , --setup-basic     Will setup the basic packages on the system"
+    
     exit 0
 }
 
@@ -128,23 +135,41 @@ function setupKube() {
     log "Completed installation..."
 }
 
+function setupKDE() {
+    log "TODO"
+}
+
 
 # GLOBAL variables
+setup_full=1
 setup_kube=1
-setup_kube_only=1
+setup_basic=1
+setup_kde=1
 
 # ====================== EXECUTION ==========================
 check_argument "$@"
 
-if [ $setup_kube_only -eq 0 ]; then
-    warn "Setting up kubernetes only, rerun script without this flag for general setup"
+if [ $setup_kube -eq 0 ]; then
+    warn "Setting up kubernetes only"
     setupKube
     exit 0
-else
-    setupRequired
-fi
+if
 
-# Optional kubernetes setup
 if [ $setup_kube -eq 0 ]; then
+    warn "Setting up KDE only"
+    setupkde
+    exit 0
+if
+
+if [ $setup_basic -eq 0 ]; then
+    warn "Setting up basic only"
+    setupRequired
+    exit 0
+if
+
+if [ $setup_full -eq 0 ]; then
+    setupRequired
+    setupkde
     setupKube
-fi
+    exit 0
+if
