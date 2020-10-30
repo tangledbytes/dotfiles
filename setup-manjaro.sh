@@ -71,9 +71,6 @@ function setupRequired() {
     # Install go
     sudo pacman -Sy go
 
-    # Install Code-OSS
-    #sudo pacman -Sy code
-
     # Install kvantum manager
     sudo pacman -Sy kvantum-qt5
 
@@ -81,7 +78,7 @@ function setupRequired() {
     sudo pacman -Sy neovim
 
     # Install conky
-    sudo pacman -Sy 
+    sudo pacman -Sy conky
 
     # Install and setup docker
     sudo pacman -Sy docker docker-compose
