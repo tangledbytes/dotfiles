@@ -10,19 +10,19 @@ c() { echo "$1" | sed -E "s/(^|[^-_])([krgybmcw])/\1-\2/;s/(^$|0)/!0¡/;s/([BUFN
 # Logs the argument
 log ()
 {
-    echo -e "$(c 0g)[CPP RUNNER]:$(c) $(c 0gL)$@$(c)"
+    echo -e "$(c 0g)[SETUP]:$(c) $(c 0gL)$@$(c)"
 }
 
 # Log warning
 warn()
 {
-    echo -e "$(c 0y)[CPP RUNNER]:$(c) $(c 0yL)$@$(c)"
+    echo -e "$(c 0y)[SETUP]:$(c) $(c 0yL)$@$(c)"
 }
 
 # Log error
 error()
 {
-    echo -e "$(c 0r)[CPP RUNNER]:$(c) $(c 0rL)$@$(c)"
+    echo -e "$(c 0r)[SETUP]:$(c) $(c 0rL)$@$(c)"
 }
 
 # Parses the arguments passed
@@ -129,7 +129,7 @@ function setupRequired() {
 function setupKube() {
     log "Setting up kubernetes..."
     sudo pacman -Sy libvirt qemu ebtables dnsmasq
-    sudo usermod -aG libvertd $USER
+    sudo usermod -aG libvirt $USER
     
     sudo systemctl start libvirtd.service
     sudo systemctl enable libvirtd.service
@@ -141,8 +141,9 @@ function setupKube() {
 
     pamac build docker-machine-driver-kvm2
     
-    sudo pacman -Syu minikube kubectl
-    log "Completed installation..."
+    sudo pacman -Sy minikube kubectl
+    log "Completed installation...Please restart the session to refresh group evaluation or run:"
+    echo "newgrp libvirt"
 }
 
 function setupKDE() {
