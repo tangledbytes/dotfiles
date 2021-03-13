@@ -32,7 +32,7 @@ check_argument()
     do
         VALUE=$(echo $i | awk -F= '{print $2}')
         case "$i" in
-            -f| --full) full=0
+            -f| --full) setup_full=0
             ;;
             --setup-kube) setup_kube=0
             ;;
@@ -75,45 +75,18 @@ function setupRequired() {
     # Update the database 
     sudo pacman -Su
 
-    # Install go
-    sudo pacman -Sy go
-
-    # Install kvantum manager
-    sudo pacman -Sy kvantum-qt5
-
-    # Install neovim
-    sudo pacman -Sy neovim
-
-    # Install conky
-    sudo pacman -Sy conky
-
-    # Install and setup docker
-    sudo pacman -Sy docker docker-compose
+    # Install go, kvantum manage, neovim, conky, docker, gnome-keyring
+    sudo pacman -Sy go kvantum-qt5 neovim conky docker docker-compose gnome-keyring brave ttf-fira-code
 
     ## AUR builds and installs 
     # Install fonts
-    pamac build ttf-ms-fonts
-    pamac build ttf-meslo-nerd-font-powerlevel10k
-    pamac build otf-san-francisco
-    sudo pacman -Sy ttf-fira-code
+    pamac build ttf-ms-fonts ttf-meslo-nerd-font-powerlevel10k otf-san-francisco
+    
     # Place fonts file
     sudo cp ./fonts.conf /etc/fonts/local.conf
 
-    # Install vscode
-    pamac build visual-studio-code-bin
-    
-    # Install google-chrome
-    pamac build google-chrome
-
-    # Install Slack
-    pamac build slack-desktop
-
-    # Install Mailspring
-    sudo -Sy gnome-keyring # Dependency
-    pamac build mailspring
-
-    # Install spotify
-    pamac build spotify
+    # Install vscode, google-chrome, Slack, spotify, mailspring, mintime
+    pamac build visual-studio-code-bin google-chrome slack-desktop mailspring spotify minetime-bin
 
     log "Enabling installed components..."
     log "Setting up docker..."
@@ -128,22 +101,23 @@ function setupRequired() {
 
 function setupKube() {
     log "Setting up kubernetes..."
-    sudo pacman -Sy libvirt qemu ebtables dnsmasq
-    sudo usermod -aG libvirt $USER
+    pamac build kind-bin
     
-    sudo systemctl start libvirtd.service
-    sudo systemctl enable libvirtd.service
-    
-    sudo systemctl start virtlogd.service
-    sudo systemctl enable virtlogd.service
+    sudo pacman -Sy kubectl
+    log "Completed installation... "
 
-    sudo pacman -Sy docker-machine
+    # Setup metallb
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
+    kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
 
-    pamac build docker-machine-driver-kvm2
-    
-    sudo pacman -Sy minikube kubectl
-    log "Completed installation...Please restart the session to refresh group evaluation or run:"
-    echo "newgrp libvirt"
+    # Install sipcalc
+    sudo pacman -Sy sipcalc
+
+    # Generate sipcalc
+    sipcalc $(ip a s | grep "inet " | grep br- | awk '{print $2}') | grep "Usable range"
+
+    log "Use a subset of the \"Usable Range\" to configure metallb..."    
 }
 
 function setupKDE() {
