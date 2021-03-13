@@ -16,5 +16,5 @@ killall conky
 sleep $time 
 
 # Finally startup conky
-conky --daemonize --pause=1 -c /home/utkarsh/.conky/ut.conkyrc
-# conky --daemonize --pause=5 -c /home/utkarsh/.conky/WeatherConky/conky_weather
+conky --daemonize --pause=1 -c ~/.conky/ut.conkyrc
+# conky --daemonize --pause=5 -c ~/.conky/WeatherConky/conky_weather
