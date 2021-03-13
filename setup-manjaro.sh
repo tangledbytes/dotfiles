@@ -40,6 +40,8 @@ check_argument()
             ;;
             --setup-basic) setup_basic=0
             ;;
+            -a| --ask) will_ask=1
+            ;;
             -h| --help) help
             ;;
         esac
@@ -58,7 +60,7 @@ help() {
     echo "  , --setup-kde       Will setup kde config on the system"
     echo "  , --setup-kube      Will setup kubernetes on the system"
     echo "  , --setup-basic     Will setup the basic packages on the system"
-    
+    echo "-a, --ask             Will prompt the user before installing some specific packages"
     exit 0
 }
 
@@ -86,8 +88,15 @@ function setupRequired() {
     sudo cp ./fonts.conf /etc/fonts/local.conf
 
     # Install vscode, google-chrome, Slack, spotify, mailspring, mintime
-    pamac build visual-studio-code-bin google-chrome slack-desktop mailspring spotify minetime-bin
-
+    if [ $will_ask -eq 1 ];then 
+        askBuild visual-studio-code-bin
+        askBuild google-chrome
+        askBuild slack-desktop
+        askBuild mailspring
+        askBuild spotify
+        askBuild minetime-bin
+    else pamac build visual-studio-code-bin google-chrome slack-desktop mailspring spotify minetime-bin
+    fi
     log "Enabling installed components..."
     log "Setting up docker..."
     sudo usermod -aG docker $USER
@@ -127,13 +136,19 @@ function setupKDE() {
     log "Files placed to the destination... Please select them from the kde settings panel"
 }
 
-
+function askBuild(){
+    vared -p "Do you want to install $1?[y/*]: " -c answer # p flag prompts the given string and -c flag creates the variable answer(if it doesn't exist.)
+   case $answer in
+            y|Y) log "installing $1" ;pamac build $1 ;;
+            *) log "skipping $1" ;;
+     esac 
+}
 # GLOBAL variables
 setup_full=1
 setup_kube=1
 setup_basic=1
 setup_kde=1
-
+will_ask=0
 # ====================== EXECUTION ==========================
 check_argument "$@"
 
