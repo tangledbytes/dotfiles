@@ -17,6 +17,6 @@ function exists() {
     done
 }
 
-dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship")
+dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf", "rg")
 
-exists "Checking dependencies..." "${dependencies[@]}"
+exists "Checking dependencies..."
