@@ -108,6 +108,7 @@ return packer.startup(function(use)
 
   -- Others
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'github/copilot.vim' -- The GOAT - Github Gopilot
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
