@@ -80,18 +80,19 @@ return packer.startup(function(use)
   use 'lewis6991/gitsigns.nvim'
 
   -- Visuals
+  use 'nvim-tree/nvim-web-devicons' -- Icons for everything
   use { -- Vim Statusbar
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  use 'ellisonleao/gruvbox.nvim' -- gruvbox theme
+  use "EdenEast/nightfox.nvim" -- Theme provider for carbonfox
   use 'glepnir/dashboard-nvim' -- fancy neovim dashboard
   use "lukas-reineke/indent-blankline.nvim" -- proper indentation guide
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      { 'nvim-tree/nvim-web-devicons', opt = false } -- optional, for file icons
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
