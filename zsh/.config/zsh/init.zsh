@@ -89,6 +89,7 @@ remote_plugins=(
   "zsh-users/zsh-autosuggestions"
   "zdharma-continuum/fast-syntax-highlighting"
   "zsh-users/zsh-history-substring-search"
+  "agkozak/zsh-z"
 )
 for rp in ${remote_plugins[@]}
 do
