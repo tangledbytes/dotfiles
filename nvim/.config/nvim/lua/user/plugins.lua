@@ -105,6 +105,7 @@ return packer.startup(function(use)
   -- Fuzzy Fuzzy stuff
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 } -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+  use { 'nvim-telescope/telescope-ui-select.nvim' }
 
   -- Others
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
