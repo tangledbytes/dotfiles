@@ -78,9 +78,14 @@ return packer.startup(function(use)
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
+  use {
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  }
 
   -- Visuals
   use 'nvim-tree/nvim-web-devicons' -- Icons for everything
+  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
   use { -- Vim Statusbar
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
