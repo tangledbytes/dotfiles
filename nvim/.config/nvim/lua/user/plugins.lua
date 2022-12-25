@@ -89,8 +89,8 @@ return packer.startup(function(use)
 
   -- Visuals
   use 'nvim-tree/nvim-web-devicons' -- Icons for everything
-  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
-  use { -- Vim Statusbar
+  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
+  use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
@@ -104,6 +104,7 @@ return packer.startup(function(use)
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+  use { 'onsails/lspkind.nvim' }
 
   -- Fuzzy Fuzzy stuff
   use { -- Fuzzy Finder (files, lsp, etc)
@@ -117,10 +118,16 @@ return packer.startup(function(use)
     cond = vim.fn.executable 'make' == 1
   }
   use { 'nvim-telescope/telescope-ui-select.nvim' }
+  use {
+    "nvim-telescope/telescope-frecency.nvim",
+    requires = { "kkharji/sqlite.lua" }
+  }
 
   -- Others
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'github/copilot.vim' -- The GOAT - Github Gopilot
+  -- use { 'kevinhwang91/nvim-bqf' }
+  use { 'kevinhwang91/nvim-bqf' }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
