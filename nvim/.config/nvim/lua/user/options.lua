@@ -27,6 +27,12 @@ vim.opt.wrap = false                            -- display lines as one long lin
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 
+-- # Neovide specific options
+vim.g.neovide_hide_mouse_when_typing = true     -- hide mouse when typing
+-- vim.g.neovide_fullscreen = true                 -- start in fullscreen - Doesn't seem to be working on Mac
+vim.g.neovide_remember_window_size = true       -- remember window size
+vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
+
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
