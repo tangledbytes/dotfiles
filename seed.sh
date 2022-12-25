@@ -1,22 +1,47 @@
 #!/bin/bash
 
+# color_log function is used to print colored log
+function color_log() {
+    local color=$1
+    local log=$2
+    case $color in
+        red)
+            echo -e "\033[31m$log\033[0m"
+            ;;
+        green)
+            echo -e "\033[32m$log\033[0m"
+            ;;
+        yellow)
+            echo -e "\033[33m$log\033[0m"
+            ;;
+        blue)
+            echo -e "\033[34m$log\033[0m"
+            ;;
+        *)
+            echo -e "\033[31m$log\033[0m"
+            ;;
+    esac
+}
+
 function exists() {
     local pre="$1"
     shift;
 
     local list=("$@")
 
-    echo "$pre"
+    color_log blue "${pre}"
 
     for item in "${list[@]}"; do
         if ! command -v $item &> /dev/null; then
-            echo "$item - item not found"
+            color_log red "$item - not found"
         else
-            echo "$item - item found"
+            color_log green "$item - found"
         fi
     done
 }
 
-dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf", "rg")
+dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf" "rg" "zsh" "sqlite3")
+suggested=("neovide")
 
-exists "Checking dependencies..."
+exists "Checking dependencies..." "${dependencies[@]}"
+exists "Checking suggested dependencies..." "${suggested[@]}"
