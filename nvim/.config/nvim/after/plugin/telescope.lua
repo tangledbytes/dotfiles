@@ -19,6 +19,7 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'ui-select')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -36,3 +37,41 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- LSP
+vim.keymap.set('n', '<leader>sls', require('telescope.builtin').lsp_document_symbols, { desc = '[S]earch [L]ocal [S]ymbols' })
+vim.keymap.set('n', '<leader>swa', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[S]earch [W]orkspace [A]ll Symbols' })
+vim.keymap.set('n', '<leader>sws', function()
+  vim.ui.select({
+    'File',
+    'Module',
+    'Namespace',
+    'Package',
+    'Class',
+    'Method',
+    'Property',
+    'Field',
+    'Constructor',
+    'Enum',
+    'Interface',
+    'Function',
+    'Variable',
+    'Constant',
+    'String',
+    'Number',
+    'Boolean',
+    'Array',
+    'Object',
+    'Key',
+    'Null',
+    'EnumMember',
+    'Struct',
+    'Event',
+    'Operator',
+    'TypeParameter',
+  }, {
+    prompt = 'Select symbol kind',
+  }, function (choice)
+    require('telescope.builtin').lsp_dynamic_workspace_symbols({ symbols = choice })
+  end)
+end, { desc = '[S]earch [W]orkspace [S]ymbols' })
