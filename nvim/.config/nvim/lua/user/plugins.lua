@@ -59,7 +59,11 @@ return packer.startup(function(use)
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip'
+    },
   }
 
   use { -- Highlight, edit, and navigate code
@@ -103,8 +107,16 @@ return packer.startup(function(use)
   }
 
   -- Fuzzy Fuzzy stuff
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 } -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+  use { -- Fuzzy Finder (files, lsp, etc)
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+  use { -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make',
+    cond = vim.fn.executable 'make' == 1
+  }
   use { 'nvim-telescope/telescope-ui-select.nvim' }
 
   -- Others
