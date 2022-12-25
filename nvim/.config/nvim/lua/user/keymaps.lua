@@ -19,6 +19,10 @@ keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- All Modes
+keymap("", "<leader>y", "\"+y", opts)
+keymap("", "<leader>p", "\"+p", opts)
+
 -- Normal --
 -- Better window navigation
 -- keymap("n", "<C-h>", "<C-w>h", opts)
@@ -29,7 +33,6 @@ keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<", "<C-o>", opts)
 keymap("n", ">", "<C-i>", opts)
-keymap("n", "<leader>y", "\"+y", opts)
 
 -- Resize with arrows
 -- keymap("n", "<S-j>", ":resize +2<CR>", opts)
