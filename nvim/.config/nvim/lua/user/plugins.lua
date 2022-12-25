@@ -95,7 +95,6 @@ return packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use "EdenEast/nightfox.nvim" -- Theme provider for carbonfox
-  use 'glepnir/dashboard-nvim' -- fancy neovim dashboard
   use "lukas-reineke/indent-blankline.nvim" -- proper indentation guide
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use {
