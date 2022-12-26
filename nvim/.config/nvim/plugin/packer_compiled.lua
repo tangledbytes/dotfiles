@@ -248,11 +248,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/usrivast/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
-  },
-  ["vscode.nvim"] = {
-    loaded = true,
-    path = "/Users/usrivast/.local/share/nvim/site/pack/packer/start/vscode.nvim",
-    url = "https://github.com/Mofiqul/vscode.nvim"
   }
 }
 
