@@ -51,6 +51,23 @@ keymap("n", ">", "<C-i>", opts)
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+keymap("v", "<leader>s", function()
+  -- Save the data to the "u" register
+  vim.api.nvim_command("\"uy")
+
+  -- Get the selected text
+  local selected = vim.fn.getreg('u')
+  print(selected)
+
+  -- Open a new tab
+  vim.api.nvim_command("tabnew")
+
+  -- Search for the selected text
+  vim.api.nvim_command("lgrep --exclude-dir=node_modules -r \"" .. selected .. "\" .")
+
+  -- Open the location list
+  vim.api.nvim_command("lopen")
+end, opts)
 
 -- Move text up and down
 -- keymap("v", "<A-j>", ":m .+1<CR>==", opts)
@@ -68,3 +85,4 @@ keymap("v", ">", ">gv", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap("t", "<leader>n", "<CMD><CR>", {})
