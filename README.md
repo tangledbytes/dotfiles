@@ -7,3 +7,7 @@ Currently these dotfiles have the following:
 2. zsh config
 3. local binaries and programs
 4. legacy items (I no longer use but might still be useful)
+5. Karabiner mappings
+6. Hammerspoon stuff (specific to MacOS)
+
+NOTE TO SELF: Make sure to run `./seed.sh` to check that all the dependencies are indeed installed on the system.
