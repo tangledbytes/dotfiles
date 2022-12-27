@@ -40,8 +40,34 @@ function exists() {
     done
 }
 
+function exists_brew_based() {
+    local pre="$1"
+    shift;
+
+    local list=("$@")
+
+    color_log blue "${pre}"
+
+    for item in "${list[@]}"; do
+        if ! brew list $item &> /dev/null; then
+            color_log red "$item - not found"
+        else
+            color_log green "$item - found"
+        fi
+    done
+}
+
 dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf" "rg" "zsh" "sqlite3")
 suggested=("neovide")
+macos_dependencies=("brew")
+macos_dependencies_brew=("karabiner-elements" "hammerspoon")
 
 exists "Checking dependencies..." "${dependencies[@]}"
 exists "Checking suggested dependencies..." "${suggested[@]}"
+
+# If MacOS is used, check if Homebrew is installed
+OSTYPE=$(uname)
+if [[ "$OSTYPE" == "Darwin" ]]; then
+    exists "Checking MacOS specific dependencies..." "${macos_dependencies[@]}"
+    exists_brew_based "Checking MacOS specific dependencies (brew)..." "${macos_dependencies_brew[@]}"
+fi
