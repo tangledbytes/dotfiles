@@ -1,4 +1,4 @@
-Hyper = {"ctrl", "shift", "cmd", "alt"}
+Hyper = { "ctrl", "shift", "cmd", "alt" }
 
 hs.window.animationDuration = 0
 
@@ -12,3 +12,4 @@ require("fork")
 require("spotify")
 require("opener")
 require("wmode")
+require("picker")

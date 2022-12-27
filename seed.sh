@@ -57,7 +57,7 @@ function exists_brew_based() {
     done
 }
 
-dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf" "rg" "zsh" "sqlite3")
+dependencies=("nvim" "vim" "stow" "tmux" "make" "git" "starship" "fzf" "rg" "zsh" "sqlite3" "fd")
 suggested=("neovide")
 macos_dependencies=("brew")
 macos_dependencies_brew=("karabiner-elements" "hammerspoon")
