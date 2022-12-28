@@ -1,3 +1,9 @@
 #!/bin/sh
 
+OS=`uname -s`
+if [ "$OS" = "Darwin" ]; then
+	echo "ERROR: This script is not supported on Mac OS X"
+	exit 1
+fi
+
 sudo rm /etc/modprobe.d/disable_webcam.conf

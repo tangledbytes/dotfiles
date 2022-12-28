@@ -1,5 +1,11 @@
 #!/bin/bash
 
+OS=`uname -s`
+if [ "$OS" = "Darwin" ]; then
+	open "$@"
+	exit $?
+fi
+
 xdg-open "$@" &> /dev/null
 
 if [ $? -ne 0 ]; then

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+OS=`uname -s`
+if [ "$OS" = "Darwin" ]; then
+	echo "ERROR: This script is not supported on Mac OS X"
+	exit 1
+fi
+
 function isCharging(){
 	batteryStatus=$(cat /sys/class/power_supply/BAT0/status)
 	
