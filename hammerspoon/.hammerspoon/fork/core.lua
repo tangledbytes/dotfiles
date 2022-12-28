@@ -19,14 +19,15 @@ M.fork = function(n, force)
     if f ~= win:id() then
       if force then
         forked[n] = win:id()
-        hs.alert.show("Force forked window " .. tostring(n) .. " to " .. win:title(), 0.5)
+        hs.alert.show("Force forked window " .. tostring(n) .. " to " .. win:title(), 1)
       else
-        hs.alert.show("Reserved!")
+        local old_win = find_window(f)
+        hs.alert.show("Reserved by " .. old_win:title() .. "", 1)
       end
     end
   else
     forked[n] = win:id()
-    hs.alert.show("Forked window " .. tostring(n) .. " to " .. win:title(), 0.5)
+    hs.alert.show("Forked window " .. tostring(n) .. " to " .. win:title(), 1)
   end
 
   hs.settings.set("forked", forked)
@@ -65,10 +66,10 @@ M.switch_to_forked = function(n)
     if win then
       win:focus()
     else
-      hs.alert.show("Forked window " .. tostring(n) .. " no longer exists", 0.5)
+      hs.alert.show("Forked window " .. tostring(n) .. " no longer exists", 1)
     end
   else
-    hs.alert.show("No window forked to " .. tostring(n), 0.5)
+    hs.alert.show("No window forked to " .. tostring(n), 1)
   end
 end
 
