@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -z $VDIR ]];
+then
+	VDIR=$(date +%s)
+fi
+
+export PATH=/tmp/_uenv/$VDIR:$PATH

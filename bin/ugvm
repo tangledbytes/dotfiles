@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function success_or_exit() {
+  if [ $1 -ne 0 ]
+  then
+    exit 1
+  fi
+}
+
+function save() {
+  local location=${TMPDIR}ugvm-$1
+
+  printf "export GOROOT=\$($1 env GOROOT)\nexport PATH=\${GOROOT}/bin:\${PATH}" > $location
+
+  echo $location
+}
+
+function main() {
+  if ! command -v $1 &> /dev/null
+  then
+    local version=$(echo golang.org/dl/$1@latest)
+
+    go install $version
+    success_or_exit $?
+
+    $1 download
+    success_or_exit $?
+  fi
+  
+  save $1
+}
+
+exec=$(echo go$1)
+success_or_exit $?
+
+main $exec

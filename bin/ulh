@@ -1,0 +1,26 @@
+#!/bin/bash
+
+dir=$(dirname "$0")
+FILE=$dir/ulh.reg
+
+if [ ! -f $FILE ]; then
+  touch $FILE
+fi
+
+if [ "$1" == "o" ]; then
+  val=$(grep "$2" $FILE | tail -1)
+  if [ -z "$val" ]; then
+    echo "$2: entry not available"
+  else
+    val=${val#"$2:"}
+    open "$val$3"
+  fi
+elif [ "$1" == "a" ]; then
+  echo "$2:$3" >> $FILE
+elif [ "$1" == "l" ]; then
+  cat $FILE
+elif [ "$1" == "p" ]; then
+  echo > $FILE
+else
+  echo "invalid command: $1"
+fi

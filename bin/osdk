@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function install() {
+	local url="https://github.com/operator-framework/operator-sdk.git"
+	local branch="master"
+	local loc="operator-sdk"
+
+	if [[ ! -z $VERSION ]];
+	then
+		branch=$VERSION
+	fi
+	
+	echo "Installing Operator SDK Version: $branch"
+
+	cd /tmp
+	rm -rf $loc 
+	git clone --depth=1 --branch $branch $url $loc
+	cd $loc
+	GOBIN=$HOME/bin make install
+}
+
+if [[ $1 == "install" ]]; then
+	install
+else
+	echo "❌ Unsupported operation"
+fi
