@@ -10,4 +10,4 @@ Currently these dotfiles have the following:
 5. Karabiner mappings
 6. Hammerspoon stuff (specific to MacOS)
 
-NOTE TO SELF: Make sure to run `./seed.sh` to check that all the dependencies are indeed installed on the system.
+NOTE TO SELF: Make sure to run `make` to check that all the dependencies are indeed installed on the system.

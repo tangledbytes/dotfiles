@@ -71,3 +71,8 @@ if [[ "$OSTYPE" == "Darwin" ]]; then
     exists "Checking MacOS specific dependencies..." "${macos_dependencies[@]}"
     exists_brew_based "Checking MacOS specific dependencies (brew)..." "${macos_dependencies_brew[@]}"
 fi
+
+echo "====================================================================================="
+echo "NOTE: If there are any missing dependencies, please install them before proceeding."
+echo "====================================================================================="
+color_log green "To setup the dotfiles, run 'make setup' in the root directory of the repository."
