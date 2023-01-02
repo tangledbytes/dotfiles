@@ -1,15 +1,17 @@
 local mode_store = require("wmode.core")
+local chorded = require("utils.chorded")
 
-OpenerM = hs.hotkey.modal.new(Hyper, "o")
-function OpenerM:entered()
+OpenerM = chorded.new(Hyper, "o")
+OpenerM:entered(function()
 	mode_store.set_mode("Opener", true)
 	hs.alert.show("Opener mode")
-end
-function OpenerM:exited()
+end)
+OpenerM:exited(function()
 	mode_store.set_mode("Opener", nil)
 	hs.alert.show("Exit Opener mode")
-end
-OpenerM:bind(Hyper, "o", function() OpenerM:exit() end)
+end)
+
+-- OpenerM:bind(Hyper, "o", function() OpenerM:exit() end)
 
 OpenerM:bind("", "t", function() hs.application.launchOrFocus("iTerm") end)
 OpenerM:bind("", "c", function() hs.application.launchOrFocus("Visual Studio Code") end)
