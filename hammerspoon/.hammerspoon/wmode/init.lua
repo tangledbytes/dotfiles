@@ -7,4 +7,4 @@ core.set_cb(function()
 	wmode:setTitle(core.get_modes("NAF", true))
 end)
 
-hs.hotkey.bind(Hyper, "space", core.show_modes)
+-- hs.hotkey.bind(Hyper, "space", core.show_modes)
