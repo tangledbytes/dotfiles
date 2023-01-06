@@ -12,7 +12,7 @@ function VimM:exited()
   hs.alert.show("Exit Vim normal mode")
 end
 
-VimM:bind({}, "escape", function() VimM:exit() end)
+VimM:bind(Hyper, "v", function() VimM:exit() end)
 
 VimM:bind("", "h", core.keyStrokeWrapped({}, "left"), nil, core.keyStrokeWrapped({}, "left"))
 VimM:bind("", "j", core.keyStrokeWrapped({}, "down"), nil, core.keyStrokeWrapped({}, "down"))
