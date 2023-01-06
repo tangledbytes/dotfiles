@@ -21,3 +21,9 @@ VimM:bind("", "l", core.keyStrokeWrapped({}, "right"), nil, core.keyStrokeWrappe
 
 VimM:bind("", "w", core.keyStrokeWrapped({ "alt" }, "right"), nil, core.keyStrokeWrapped({ "alt" }, "right"))
 VimM:bind("", "b", core.keyStrokeWrapped({ "alt" }, "left"), nil, core.keyStrokeWrapped({ "alt" }, "left"))
+
+VimM:bind("", "u", core.keyStrokeWrapped({ "cmd" }, "z"), nil, core.keyStrokeWrapped({ "cmd" }, "z"))
+VimM:bind("", "r", core.keyStrokeWrapped({ "cmd", "shift" }, "z"), nil, core.keyStrokeWrapped({ "cmd", "shift" }, "z"))
+
+VimM:bind({"ctrl"}, "d", core.keyStrokeWrapped({}, "pagedown"), nil, core.keyStrokeWrapped({}, "pagedown"))
+VimM:bind({"ctrl"}, "u", core.keyStrokeWrapped({}, "pageup"), nil, core.keyStrokeWrapped({}, "pageup"))
