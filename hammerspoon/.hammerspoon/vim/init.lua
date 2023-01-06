@@ -27,3 +27,6 @@ VimM:bind("", "r", core.keyStrokeWrapped({ "cmd", "shift" }, "z"), nil, core.key
 
 VimM:bind({"ctrl"}, "d", core.keyStrokeWrapped({}, "pagedown"), nil, core.keyStrokeWrapped({}, "pagedown"))
 VimM:bind({"ctrl"}, "u", core.keyStrokeWrapped({}, "pageup"), nil, core.keyStrokeWrapped({}, "pageup"))
+
+VimM:bind({ "rightshift" }, ",", core.keyStrokeWrapped({ "cmd" }, "left"), nil, core.keyStrokeWrapped({ "cmd" }, "left"))
+VimM:bind({ "rightshift" }, ".", core.keyStrokeWrapped({ "cmd" }, "right"), nil, core.keyStrokeWrapped({ "cmd" }, "right"))
