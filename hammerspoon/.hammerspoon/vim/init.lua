@@ -19,6 +19,8 @@ VimM:bind("", "j", core.keyStrokeWrapped({}, "down"), nil, core.keyStrokeWrapped
 VimM:bind("", "k", core.keyStrokeWrapped({}, "up"), nil, core.keyStrokeWrapped({}, "up"))
 VimM:bind("", "l", core.keyStrokeWrapped({}, "right"), nil, core.keyStrokeWrapped({}, "right"))
 
+VimM:bind("", "p", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
+
 VimM:bind("", "w", core.keyStrokeWrapped({ "alt" }, "right"), nil, core.keyStrokeWrapped({ "alt" }, "right"))
 VimM:bind("", "b", core.keyStrokeWrapped({ "alt" }, "left"), nil, core.keyStrokeWrapped({ "alt" }, "left"))
 
