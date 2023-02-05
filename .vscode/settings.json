@@ -1,3 +1,7 @@
 {
-	"Lua.diagnostics.globals": ["hs", "vim"]
+	"Lua.diagnostics.globals": [
+		"hs",
+		"vim"
+	],
+	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
