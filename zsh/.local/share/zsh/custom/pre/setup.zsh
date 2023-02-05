@@ -5,7 +5,7 @@ path+=("$HOME/.local/bin")
 export PATH
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 export DOCKER_BUILDKIT=1
 export GPG_TTY=$(tty)
@@ -17,6 +17,11 @@ export GOROOT=$(go env GOROOT)
 
 # SETUP ZSH OPTIONS
 setopt autocd
+## ZSH HISTORY OPTIONS
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+setopt appendhistory
 
 # SETUP FPATH AUTOCOMPLETE
 if type brew &>/dev/null # Do it for brew here -- linux can be handled seperately
