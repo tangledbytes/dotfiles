@@ -1,19 +1,13 @@
--- Caffiene for mac
-_caffeine = hs.menubar.new()
+local mode_store = require("wmode.core")
 
-local function setCaffeineDisplay(state)
-    if state then
-        _caffeine:setTitle("AWAKE")
+hs.hotkey.bind(Hyper, "c", function()
+    hs.caffeinate.toggle("displayIdle")
+
+    if (hs.caffeinate.get("displayIdle")) then
+        print("Caffeine enabled")
+        mode_store.set_mode("Caffeine", true)
     else
-        _caffeine:setTitle("SLEEPY")
+        print("Caffeine disabled")
+        mode_store.set_mode("Caffeine", nil)
     end
-end
-
-local function caffeineClicked()
-    setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
-end
-
-if _caffeine then
-    _caffeine:setClickCallback(caffeineClicked)
-    setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
-end
+end)
