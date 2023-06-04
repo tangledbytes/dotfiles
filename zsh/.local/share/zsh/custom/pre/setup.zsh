@@ -7,7 +7,6 @@ export PATH
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-export DOCKER_BUILDKIT=1
 export GPG_TTY=$(tty)
 export EDITOR=nvim
 export CLICOLOR=1 # Force color is ls output
