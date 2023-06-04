@@ -25,3 +25,8 @@ function w() {
 
   watch -c "$cmd"
 }
+
+# SETUP ITERM2 INTEGRATION ===================================================================
+if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
+  source "${HOME}/.iterm2_shell_integration.zsh"
+fi
