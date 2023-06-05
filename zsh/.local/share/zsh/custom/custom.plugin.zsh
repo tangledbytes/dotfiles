@@ -1,7 +1,6 @@
 # Cutom aliases =====
 alias vim="nvim"
 alias c="code ."
-alias cls="clear"
 alias gc="git commit -v -s"
 
 # Custom functions =====
@@ -24,6 +23,10 @@ function w() {
   local cmd="$(uexp "$@")"
 
   watch -c "$cmd"
+}
+
+function ucls () {
+  printf '\033[2J\033[3J\033[1;1H'
 }
 
 # SETUP ITERM2 INTEGRATION ===================================================================
