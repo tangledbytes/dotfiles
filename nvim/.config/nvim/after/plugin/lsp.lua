@@ -54,7 +54,11 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
 
-  lua_ls = {},
+  lua_ls = {
+    workspace = {
+      checkThirdParty = false
+    }
+  },
 }
 
 -- Setup neovim lua configuration

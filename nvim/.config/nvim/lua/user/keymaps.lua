@@ -52,12 +52,8 @@ keymap("n", ">", "<C-i>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 keymap("v", "<leader>s", function()
-  -- Save the data to the "u" register
-  vim.api.nvim_command("\"uy")
-
   -- Get the selected text
-  local selected = vim.fn.getreg('u')
-  print(selected)
+  local selected = vim.fn.expand("<cword>")
 
   -- Open a new tab
   vim.api.nvim_command("tabnew")
