@@ -51,7 +51,13 @@ end
 local servers = {
   clangd = {},
   gopls = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    ['rust-analyzer'] = {
+      checkOnSave = {
+        command = 'clippy'
+      }
+    }
+  },
   tsserver = {},
 
   lua_ls = {
@@ -60,6 +66,23 @@ local servers = {
     }
   },
 }
+
+local override_func_loader, load_err = loadfile(".nlspoverride.lua")
+if override_func_loader then
+  local success, override_func = pcall(override_func_loader)
+  if not success then
+      vim.api.nvim_echo({{ "Error while loading .nlspoverride.lua: "..override_func, 'None'}}, false, {})
+  elseif type(override_func) ~= "function" then
+      vim.api.nvim_echo({{ "Error: .nlspoverride.lua did not return a function", 'None'}}, false, {})
+  else
+      local success, returned_servers = pcall(override_func, servers)
+      if not success then
+          vim.api.nvim_echo({{ "Error while running .nlspoverride.lua: "..returned_servers, 'None'}}, false, {})
+      else
+          servers = returned_servers  -- Use the returned (modified) servers table
+      end
+  end
+end
 
 -- Setup neovim lua configuration
 require('neodev').setup()
