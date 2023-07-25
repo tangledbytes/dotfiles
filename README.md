@@ -9,5 +9,6 @@ Currently these dotfiles have the following:
 4. legacy items (I no longer use but might still be useful)
 5. Karabiner mappings
 6. Hammerspoon stuff (specific to MacOS)
+7. Basic tmux config
 
 NOTE TO SELF: Make sure to run `make` to check that all the dependencies are indeed installed on the system.
