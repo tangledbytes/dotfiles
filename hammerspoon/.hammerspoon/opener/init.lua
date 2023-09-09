@@ -13,7 +13,7 @@ end)
 
 OpenerM:bind("", "t", function() hs.application.launchOrFocus("iTerm") end)
 OpenerM:bind("", "c", function() hs.application.launchOrFocus("Visual Studio Code") end)
-OpenerM:bind("", "b", function() hs.application.launchOrFocus("Google Chrome") end)
+OpenerM:bind("", "b", function() hs.application.launchOrFocus("Arc") end)
 OpenerM:bind("", "s", function() hs.application.launchOrFocus("Slack") end)
 OpenerM:bind("", "m", function() hs.application.launchOrFocus("Spotify") end)
 
