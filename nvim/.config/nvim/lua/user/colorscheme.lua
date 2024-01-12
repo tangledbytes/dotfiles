@@ -1,4 +1,4 @@
-local colorscheme = "carbonfox"
+local colorscheme = "nightfox"
 
 require('nightfox').setup({
   options = {
