@@ -50,7 +50,7 @@ return packer.startup(function(use)
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
+      { 'j-hui/fidget.nvim', tag = "legacy" },
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
@@ -95,6 +95,7 @@ return packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use "EdenEast/nightfox.nvim" -- Theme provider for carbonfox
+  use "navarasu/onedark.nvim" -- Theme provider for onedark
   use "lukas-reineke/indent-blankline.nvim" -- proper indentation guide
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use {
@@ -125,7 +126,6 @@ return packer.startup(function(use)
 
   -- Others
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'github/copilot.vim' -- The GOAT - Github Gopilot
   use { 'kevinhwang91/nvim-bqf' }
 
   -- Automatically set up your configuration after cloning packer.nvim
