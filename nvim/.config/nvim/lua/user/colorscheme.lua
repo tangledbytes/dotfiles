@@ -1,7 +1,16 @@
-local colorscheme = "nightfox"
-
-require('nightfox').setup({
-  options = {
+-- local colorscheme = "nightfox"
+--
+-- require('nightfox').setup({
+--   options = {
+--     transparent = true,
+--   }
+-- })
+--
+local colorscheme = "onedark"
+require("onedark").setup({
+  style = "darker",
+  transparent = true,
+  lualine = {
     transparent = true,
   }
 })
