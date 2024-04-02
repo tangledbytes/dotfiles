@@ -50,7 +50,7 @@ return packer.startup(function(use)
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', tag = "legacy" },
+      { 'j-hui/fidget.nvim' },
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
@@ -96,14 +96,14 @@ return packer.startup(function(use)
   }
   use "EdenEast/nightfox.nvim" -- Theme provider for carbonfox
   use "navarasu/onedark.nvim" -- Theme provider for onedark
+  use "ellisonleao/gruvbox.nvim" -- Theme provider for gruvbox
   use "lukas-reineke/indent-blankline.nvim" -- proper indentation guide
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
       { 'nvim-tree/nvim-web-devicons', opt = false } -- optional, for file icons
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
   }
   use { 'onsails/lspkind.nvim' }
 
