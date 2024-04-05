@@ -19,7 +19,8 @@ function generate_session_name(){
 
 function new_tmux_session(){
 	local session="$1"
-	TMUX="" tmux new-session -d -s "$session"
+	local dir="$2"
+	TMUX="" tmux new-session -d -s "$session" -c "$dir"
 }
 
 function attach_tmux_session(){
@@ -39,7 +40,7 @@ function tmux_session(){
 	tmux has-session -t "$session" 2>/dev/null
 	if [ ! "$?" -eq 0 ]; then
 		# There is no session with this name, create
-		new_tmux_session "$session"
+		new_tmux_session "$session" "$choice"
 	else
 		# If there is already a session with this name
 		# check if the working directory there is the same
@@ -53,7 +54,7 @@ function tmux_session(){
 		if [[ ! "$session_wd" = "$choice" ]]; then
 			# The session exists but with different path - create a new session
 			session="$(generate_session_name "$session")"
-			new_tmux_session "$session"
+			new_tmux_session "$session" "$choice"
 		fi
 	fi
 
