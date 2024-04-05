@@ -8,6 +8,7 @@ setup: seed
 	stow -t $(HOME) nvim
 	stow -t $(HOME)/bin bin
 	stow -t $(HOME) tmux
+	stow -t $(HOME) alacritty
 	@if [ "$(OS)" = "Darwin" ]; then \
 		echo "Setting up MacOS specific dotfiles"; \
 		stow -t $(HOME) karabiner; \
