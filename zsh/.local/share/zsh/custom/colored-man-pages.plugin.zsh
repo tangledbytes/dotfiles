@@ -6,15 +6,20 @@
 typeset -AHg less_termcap
 
 # bold & blinking mode
-less_termcap[mb]=$(printf "\e[1;32m")
-less_termcap[md]=$(printf "\e[1;32m")
+less_termcap[mb]=$(printf "\e[1;31m")
+less_termcap[md]=$(printf "\e[1;31m")
 less_termcap[me]=$(printf "\e[0m")
 # standout mode
-less_termcap[se]=$(printf "\e[01;33m")
-less_termcap[so]=$(printf "\e[0m")
+less_termcap[so]=$(printf "\e[1;33m\e[1;44m")
+less_termcap[se]=$(printf "\e[0m")
 # underlining
+less_termcap[us]=$(printf "\e[1;4;32m")
 less_termcap[ue]=$(printf "\e[0m")
-less_termcap[us]=$(printf "\e[1;4;31m")
+
+# Handle $0 according to the standard:
+# https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html
+0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
+0="${${(M)0:#/*}:-$PWD/$0}"
 
 # Absolute path to this file's directory.
 typeset __colored_man_pages_dir="${0:A:h}"
@@ -31,6 +36,12 @@ function colored() {
   # Prefer `less` whenever available, since we specifically configured
   # environment for it.
   environment+=( PAGER="${commands[less]:-$PAGER}" )
+  environment+=( GROFF_NO_SGR=1 )
+
+  # See ./nroff script.
+  if [[ "$OSTYPE" = solaris* ]]; then
+    environment+=( PATH="${__colored_man_pages_dir}:$PATH" )
+  fi
 
   command env $environment "$@"
 }
