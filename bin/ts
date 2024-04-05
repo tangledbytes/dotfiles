@@ -1,0 +1,88 @@
+#!/bin/bash
+
+TS_DATA_FILE_NAME=".ts.data"
+TS_DATA_FILE="$HOME/$TS_DATA_FILE_NAME"
+
+function generate_session_name(){
+    local name="$1"
+    local base="${name%-*}"  # Remove the part after the last dash (if exists)
+    local suffix="${name##*-}"  # Extract the part after the last dash
+
+    # Check if the suffix is a number
+    if [[ "$suffix" =~ ^[0-9]+$ ]]; then
+        local new_suffix=$((suffix + 1))
+        echo "${base}-${new_suffix}"
+    else
+        echo "${name}-1"
+    fi
+}
+
+function new_tmux_session(){
+	local session="$1"
+	TMUX="" tmux new-session -d -s "$session"
+}
+
+function attach_tmux_session(){
+	local session="$1"
+	if [[ -z "$TMUX" ]]; then
+	  tmux attach -t "$session"
+	else
+	  tmux switch-client -t "$session"
+	fi
+}
+
+function tmux_session(){
+	# If the session exists
+	local choice="$1"
+	local session="$(basename "$choice")"
+
+	tmux has-session -t "$session" 2>/dev/null
+	if [ ! "$?" -eq 0 ]; then
+		# There is no session with this name, create
+		new_tmux_session "$session"
+	else
+		# If there is already a session with this name
+		# check if the working directory there is the same
+		# as the one that we want
+		local session_wd=$(tmux display-message -p -t "$session" "#{session_path}")
+		if [ ! "$?" -eq 0 ]; then
+			echo "failed to determine session path - skip"
+			exit 1
+		fi
+
+		if [[ ! "$session_wd" = "$choice" ]]; then
+			# The session exists but with different path - create a new session
+			session="$(generate_session_name "$session")"
+			new_tmux_session "$session"
+		fi
+	fi
+
+	attach_tmux_session "$session"
+}
+
+if [[ "$1" = "generate" ]];
+then
+	fd -t d -c never --exact-depth 1 . $(pwd) >> "$TS_DATA_FILE"
+elif [[ "$1" = "clean" ]];
+then
+	if [ -f "$TS_DATA_FILE" ]; then
+		awk '!seen[$0]++' "$TS_DATA_FILE" > "$TMPDIR$TS_DATA_FILE_NAME"
+		mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
+	fi
+elif [[ "$1" = "validate" ]]; then
+	cat ~/.ts.data | xargs -I{} sh -c "[ -d {} ] && (echo {} >> $TMPDIR$TS_DATA_FILE_NAME)"
+	mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
+elif [[ "$1" = "" ]];
+then
+	if [ -f "$TS_DATA_FILE" ]; then
+		choice="$(cat "$TS_DATA_FILE" | fzf)"
+		if [ ! "$?" -eq 0 ]; then
+			exit 0
+		fi
+
+		tmux_session "$choice"
+	fi
+else
+	echo "Usage: ts [generate | validate | clean]"
+	exit 1
+fi
