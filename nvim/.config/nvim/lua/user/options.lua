@@ -18,7 +18,7 @@ vim.opt.swapfile = false                        -- creates a swapfile
 vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
 vim.opt.timeoutlen = 200                        -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = true                         -- enable persistent undo
-vim.opt.updatetime = 200                         -- faster completion (4000ms default)
+vim.opt.updatetime = 200                        -- faster completion (4000ms default)
 vim.opt.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 vim.opt.number = true                           -- set numbered lines
 vim.opt.relativenumber = true                   -- set relative numbered lines
@@ -26,10 +26,11 @@ vim.opt.signcolumn = "yes"                      -- always show the sign column, 
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
+vim.opt.fillchars = {eob = " "}			-- Removes the weird ~ characters
+vim.opt.cursorline = true                       -- Highlight cursorline
 
 -- # Neovide specific options
 vim.g.neovide_hide_mouse_when_typing = true     -- hide mouse when typing
--- vim.g.neovide_fullscreen = true                 -- start in fullscreen - Doesn't seem to be working on Mac
 vim.g.neovide_remember_window_size = true       -- remember window size
 vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
 
@@ -73,6 +74,3 @@ vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSig
 --   { texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation" }
 -- )
 
--- Netrw configs
--- vim.g.netrw_browse_split = 0
--- vim.g.netrw_winsize = 20
