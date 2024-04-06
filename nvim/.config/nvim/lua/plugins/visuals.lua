@@ -60,6 +60,9 @@ return {
           error = "",
         },
       },
+      update_focused_file = {
+        enable = true
+      }
     }
   },
 
