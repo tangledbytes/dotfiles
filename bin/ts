@@ -62,8 +62,17 @@ function tmux_session(){
 	attach_tmux_session "$session"
 }
 
+function add(){
+	grep -q "$(pwd)" "$TS_DATA_FILE"
+	if [ "$?" -eq 0 ]; then
+		echo "$(pwd) already exists"
+	else
+		echo "$(pwd)" >> "$TS_DATA_FILE"
+	fi
+}
+
 function generate(){
-	fd -t d -c never --exact-depth 1 . $(pwd) >> "$TS_DATA_FILE"
+	fd -t d -c never --exact-depth 1 . "$(pwd)" >> "$TS_DATA_FILE"
 }
 
 function cleanup(){
@@ -111,23 +120,27 @@ function zts(){
 function helpmsg(){
 	echo "Usage: ts [dirname]"
 	echo "Flags:"
-	printf "  -c\t Clean the ts data file\n"
-	printf "  -g\t Add data generated from the CWD to the ts data file\n"
-	printf "  -h\t Print help message\n"
-	printf "  -v\t Validate the ts data file\n"
+	printf "  -a, --add     \t Add the current directory to the registry\n"
+	printf "  -c, --clean   \t Clean the ts data file\n"
+	printf "  -g, --generate\t Add data generated from the CWD to the ts data file\n"
+	printf "  -h, --help    \t Print help message\n"
+	printf "  -v, --validate\t Validate the ts data file\n"
 }
 
 function main(){
-	if [[ "$1" = "-c" ]];
+	if [[ "$1" = "-a" || "$1" = "--add" ]];
+	then
+		add
+	elif [[ "$1" = "-c" || "$1" = "--clean" ]];
 	then
 		cleanup
-	elif [[ "$1" = "-g" ]];
+	elif [[ "$1" = "-g" || "$1" = "--generate" ]];
 	then
 		generate
-	elif [[ "$1" = "-h" ]];
+	elif [[ "$1" = "-h" || "$1" = "--help" ]];
 	then
 		helpmsg
-	elif [[ "$1" = "-v" ]];
+	elif [[ "$1" = "-v" || "$1" = "--validate" ]];
 	then
 		validate
 	elif [[ "$1" = "" ]];
