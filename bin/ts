@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 TS_DATA_FILE_NAME=".ts.data"
 TS_DATA_FILE="$HOME/$TS_DATA_FILE_NAME"
@@ -61,29 +61,75 @@ function tmux_session(){
 	attach_tmux_session "$session"
 }
 
-if [[ "$1" = "generate" ]];
-then
+function generate(){
 	fd -t d -c never --exact-depth 1 . $(pwd) >> "$TS_DATA_FILE"
-elif [[ "$1" = "clean" ]];
-then
+}
+
+function cleanup(){
 	if [ -f "$TS_DATA_FILE" ]; then
 		awk '!seen[$0]++' "$TS_DATA_FILE" > "$TMPDIR$TS_DATA_FILE_NAME"
 		mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
 	fi
-elif [[ "$1" = "validate" ]]; then
+}
+
+function validate(){
 	cat ~/.ts.data | xargs -I{} sh -c "[ -d {} ] && (echo {} >> $TMPDIR$TS_DATA_FILE_NAME)"
 	mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
-elif [[ "$1" = "" ]];
-then
+}
+
+function tscore(){
 	if [ -f "$TS_DATA_FILE" ]; then
-		choice="$(cat "$TS_DATA_FILE" | fzf)"
+		local choice="$(cat "$TS_DATA_FILE" | fzf)"
 		if [ ! "$?" -eq 0 ]; then
 			exit 0
 		fi
 
 		tmux_session "$choice"
 	fi
-else
-	echo "Usage: ts [generate | validate | clean]"
-	exit 1
-fi
+}
+
+function zts(){
+	if [ -e "$HOME/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh" ];
+	then
+		source ~/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh
+
+		local choice="$(zshz 2>&1 -e "$1")"
+		tmux_session "$choice"
+	else
+		echo "zsh-z plugin missing"
+		exit 1
+	fi
+}
+
+function helpmsg(){
+	echo "Usage: ts [dirname]"
+	echo "Flags:"
+	printf "  -c\t Clean the ts data file\n"
+	printf "  -g\t Add data generated from the CWD to the ts data file\n"
+	printf "  -h\t Print help message\n"
+	printf "  -v\t Validate the ts data file\n"
+}
+
+function main(){
+	if [[ "$1" = "-c" ]];
+	then
+		cleanup
+	elif [[ "$1" = "-g" ]];
+	then
+		generate
+	elif [[ "$1" = "-h" ]];
+	then
+		helpmsg
+	elif [[ "$1" = "-v" ]];
+	then
+		validate
+	elif [[ "$1" = "" ]];
+	then
+		tscore
+	else
+		zts "$1"
+	fi
+}
+
+main "$@"
+
