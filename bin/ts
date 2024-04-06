@@ -45,7 +45,8 @@ function tmux_session(){
 		# If there is already a session with this name
 		# check if the working directory there is the same
 		# as the one that we want
-		local session_wd=$(tmux display-message -p -t "$session" "#{session_path}")
+		local session_wd
+		session_wd=$(tmux display-message -p -t "$session" "#{session_path}")
 		if [ ! "$?" -eq 0 ]; then
 			echo "failed to determine session path - skip"
 			exit 1
@@ -79,7 +80,8 @@ function validate(){
 
 function tscore(){
 	if [ -f "$TS_DATA_FILE" ]; then
-		local choice="$(cat "$TS_DATA_FILE" | fzf)"
+		local choice
+		choice="$(cat "$TS_DATA_FILE" | fzf)"
 		if [ ! "$?" -eq 0 ]; then
 			exit 0
 		fi
@@ -93,7 +95,12 @@ function zts(){
 	then
 		source ~/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh
 
-		local choice="$(zshz 2>&1 -e "$1")"
+		local choice
+		choice="$(zshz 2>&1 -e "$1")"
+		if [ ! "$?" -eq 0 ]; then
+			echo "no directory found - use ts"
+			exit 0
+		fi
 		tmux_session "$choice"
 	else
 		echo "zsh-z plugin missing"
