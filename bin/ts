@@ -3,13 +3,6 @@
 TS_DATA_FILE_NAME=".ts.data"
 TS_DATA_FILE="$HOME/$TS_DATA_FILE_NAME"
 
-function prereqs_check(){
-	if ! command -v tmux &> /dev/null; then
-		echo "tmux is a prereq"
-		exit 1
-	fi
-}
-
 function generate_session_name(){
     local name="$1"
     local base="${name%-*}"  # Remove the part after the last dash (if exists)
@@ -135,8 +128,6 @@ function helpmsg(){
 }
 
 function main(){
-	prereqs_check
-
 	if [[ "$1" = "-a" || "$1" = "--add" ]];
 	then
 		add
