@@ -28,6 +28,9 @@ vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.fillchars = {eob = " "}			-- Removes the weird ~ characters
 vim.opt.cursorline = true                       -- Highlight cursorline
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = false
 
 -- # Neovide specific options
 vim.g.neovide_hide_mouse_when_typing = true     -- hide mouse when typing
