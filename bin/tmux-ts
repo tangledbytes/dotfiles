@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+function prereqs_check(){
+	if ! command -v ts &> /dev/null; then
+		echo "ts is a prereq"
+		exit 1
+	fi
+
+	if ! command -v fzf-tmux &> /dev/null; then
+		echo "fzf-tmux is a prereq"
+		exit 1
+	fi
+}
+
+function tmux_ts_core(){
+	cat ~/.ts.data | fzf-tmux -p | xargs ts
+}
+
+function main(){
+	prereqs_check
+	tmux_ts_core
+}
+
+main
