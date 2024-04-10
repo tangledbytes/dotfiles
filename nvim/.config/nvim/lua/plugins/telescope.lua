@@ -103,43 +103,43 @@ return {
 
 
       -- -- LSP
-      -- vim.keymap.set('n', '<leader>sls', require('telescope.builtin').lsp_document_symbols, { desc = '[S]earch [L]ocal [S]ymbols' })
-      -- vim.keymap.set('n', '<leader>swa', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[S]earch [W]orkspace [A]ll Symbols' })
-      -- vim.keymap.set('n', '<leader>sws', function()
-      --   vim.ui.select({
-      --     'File',
-      --     'Module',
-      --     'Namespace',
-      --     'Package',
-      --     'Class',
-      --     'Method',
-      --     'Property',
-      --     'Field',
-      --     'Constructor',
-      --     'Enum',
-      --     'Interface',
-      --     'Function',
-      --     'Variable',
-      --     'Constant',
-      --     'String',
-      --     'Number',
-      --     'Boolean',
-      --     'Array',
-      --     'Object',
-      --     'Key',
-      --     'Null',
-      --     'EnumMember',
-      --     'Struct',
-      --     'Event',
-      --     'Operator',
-      --     'TypeParameter',
-      --   },
-      --   { prompt = 'Select symbol kind' },
-      --   function (choice)
-      --     require('telescope.builtin').lsp_dynamic_workspace_symbols({ symbols = choice })
-      --   end)
-      -- end,
-      -- { desc = '[S]earch [W]orkspace [S]ymbols' })
+      vim.keymap.set('n', '<leader>sls', require('telescope.builtin').lsp_document_symbols, { desc = '[S]earch [L]ocal [S]ymbols' })
+      vim.keymap.set('n', '<leader>spa', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[S]earch [P]roject [A]ll Symbols' })
+      vim.keymap.set('n', '<leader>sps', function()
+        vim.ui.select({
+          'File',
+          'Module',
+          'Namespace',
+          'Package',
+          'Class',
+          'Method',
+          'Property',
+          'Field',
+          'Constructor',
+          'Enum',
+          'Interface',
+          'Function',
+          'Variable',
+          'Constant',
+          'String',
+          'Number',
+          'Boolean',
+          'Array',
+          'Object',
+          'Key',
+          'Null',
+          'EnumMember',
+          'Struct',
+          'Event',
+          'Operator',
+          'TypeParameter',
+        },
+        { prompt = 'Select symbol kind' },
+        function (choice)
+          require('telescope.builtin').lsp_dynamic_workspace_symbols({ symbols = choice })
+        end)
+      end,
+      { desc = '[S]earch [P]roject [S]ymbols' })
     end,
   },
 }
