@@ -2,6 +2,7 @@
 alias vim="nvim"
 alias c="code ."
 alias gc="git commit -v -s"
+alias lg="lazygit"
 
 # Custom functions =====
 function ccd() {
@@ -30,6 +31,6 @@ function ucls () {
 }
 
 # SETUP ITERM2 INTEGRATION ===================================================================
-if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
-  source "${HOME}/.iterm2_shell_integration.zsh"
-fi
+# if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
+#   source "${HOME}/.iterm2_shell_integration.zsh"
+# fi
