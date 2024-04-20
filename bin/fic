@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+ICLOUD_PATH="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+
+function main(){
+	pushd "$ICLOUD_PATH"
+
+	local choice
+	choice="$(fd -t f -c never | fzf)"
+	if [ ! "$?" -eq 0 ]; then
+		exit 0
+	fi
+
+	open "$choice"
+}
+
+main
+
