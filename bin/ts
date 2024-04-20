@@ -124,6 +124,7 @@ function helpmsg(){
 	printf "  -c, --clean   \t Clean the ts data file\n"
 	printf "  -g, --generate\t Add data generated from the CWD to the ts data file\n"
 	printf "  -h, --help    \t Print help message\n"
+	printf "  -s, --show    \t Show the ts metadata\n"
 	printf "  -v, --validate\t Validate the ts data file\n"
 }
 
@@ -140,6 +141,12 @@ function main(){
 	elif [[ "$1" = "-h" || "$1" = "--help" ]];
 	then
 		helpmsg
+	elif [[ "$1" = "-s" || "$1" = "--show" ]];
+	then
+		if [ -f "$HOME/.ts.data" ];
+		then
+			cat ~/.ts.data
+		fi
 	elif [[ "$1" = "-v" || "$1" = "--validate" ]];
 	then
 		validate
