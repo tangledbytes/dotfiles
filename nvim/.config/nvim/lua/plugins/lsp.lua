@@ -1,3 +1,15 @@
+local function local_lsp_cfg(servers)
+  local f = loadfile(vim.fn.getcwd() .. '/.lspconfig.lua')
+
+  if f ~= nil then
+      local lcfg = f()
+      if lcfg ~= nil then
+        return vim.tbl_deep_extend('force', {}, servers, lcfg or {})
+      end
+  end
+
+  return servers
+end
 
 return {
   -- LSP Configuration & Plugins
@@ -147,9 +159,11 @@ return {
         clangd = {},
         gopls = {},
         rust_analyzer = {
-          ['rust-analyzer'] = {
-            checkOnSave = {
-              command = 'clippy'
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy'
+              }
             }
           }
         },
@@ -182,6 +196,8 @@ return {
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
+            servers = local_lsp_cfg(servers)
+
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             server.handlers = handlers
