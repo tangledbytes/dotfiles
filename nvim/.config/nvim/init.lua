@@ -19,6 +19,7 @@ spec "user.autopairs"
 
 spec "user.gitsigns"
 
+spec "user.lsp-progress"
 spec "user.lualine"
 
 spec "user.navic"
