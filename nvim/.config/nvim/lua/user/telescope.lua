@@ -22,7 +22,6 @@ local M = {
 function M.config()
 	local icons = require"user.icons"
 	local actions = require "telescope.actions"
-	local builtin = require "telescope.builtin"
 
 	require("telescope").setup {
 		defaults = {
@@ -53,24 +52,11 @@ function M.config()
 			-- mappings = {},
 		},
 		pickers = {
-			live_grep = {
-				theme = "dropdown",
-			},
-
-			grep_string = {
-				theme = "dropdown",
-			},
-
 			find_files = {
-				theme = "dropdown",
 				hidden = true,
-				previewer = false,
 			},
 
 			buffers = {
-				theme = "dropdown",
-				previewer = false,
-				initial_mode = "normal",
 				mappings = {
 					i = {
 						["<C-d>"] = actions.delete_buffer,
@@ -79,35 +65,6 @@ function M.config()
 						["dd"] = actions.delete_buffer,
 					},
 				},
-			},
-
-			planets = {
-				show_pluto = true,
-				show_moon = true,
-			},
-
-			colorscheme = {
-				enable_preview = true,
-			},
-
-			lsp_references = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_definitions = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_declarations = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_implementations = {
-				theme = "dropdown",
-				initial_mode = "normal",
 			},
 		},
 		extensions = {

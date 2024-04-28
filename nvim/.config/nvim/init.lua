@@ -16,6 +16,7 @@ spec "user.lspconfig"
 spec "user.cmp"
 spec "user.none-ls"
 spec "user.autopairs"
+spec "user.go"
 
 spec "user.gitsigns"
 
