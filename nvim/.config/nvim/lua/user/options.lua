@@ -8,8 +8,9 @@ vim.opt.ignorecase = true                       -- ignore case in search pattern
 vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 vim.opt.breakindent = true                      -- Enable break indent
 vim.opt.pumheight = 10                          -- pop up menu height
+vim.opt.pumblend = 0                            -- Enables transparency in the popup menus (0%)
 vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 2                         -- always show tabs - here 2 means "always", other options are 0 and 1
+vim.opt.showtabline = 1                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
 vim.opt.smartindent = true                      -- make indenting smarter again
 vim.opt.splitbelow = true                       -- force all horizontal splits to go below current window
@@ -26,54 +27,22 @@ vim.opt.signcolumn = "yes"                      -- always show the sign column, 
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
-vim.opt.fillchars = {eob = " "}			-- Removes the weird ~ characters
+vim.opt.fillchars = {eob = " "}                 -- Removes the weird ~ characters
 vim.opt.cursorline = true                       -- Highlight cursorline
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = false
+
+vim.g.netrw_banner = 0
+vim.g.netrw_mouse = 2
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- # Neovide specific options
 vim.g.neovide_hide_mouse_when_typing = true     -- hide mouse when typing
 vim.g.neovide_remember_window_size = true       -- remember window size
 vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
 
-
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
-
--- Highlight on yank
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = highlight_group,
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank({
-	higroup = 'IncSearch',
-	timeout = 40,
-    })
-  end,
-})
-
--- Setup diagnostic signs
-vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
-
-vim.fn.sign_define(
-  "LspDiagnosticsSignError",
-  { texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError" }
-)
-vim.fn.sign_define(
-  "LspDiagnosticsSignWarning",
-  { texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning" }
-)
-vim.fn.sign_define(
-  "LspDiagnosticsSignHint",
-  { texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint" }
-)
-vim.fn.sign_define(
-  "LspDiagnosticsSignInformation",
-  { texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation" }
-)
 
