@@ -235,7 +235,7 @@ function M.config()
 			opts = vim.tbl_deep_extend("force", settings, opts)
 		end
 
-		local lcfg = local_lsp_cfg('rust_analyzer')
+		local lcfg = local_lsp_cfg(server)
 		if lcfg ~= nil then
 			opts = vim.tbl_deep_extend("force", lcfg, opts)
 		end
