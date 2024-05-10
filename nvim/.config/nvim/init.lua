@@ -19,6 +19,7 @@ spec "user.autopairs"
 spec "user.go"
 
 spec "user.gitsigns"
+spec "user.diffview"
 
 spec "user.lsp-progress"
 spec "user.lualine"
