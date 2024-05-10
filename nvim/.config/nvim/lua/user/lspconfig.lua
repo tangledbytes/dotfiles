@@ -152,13 +152,6 @@ local function lsp_user_commands()
 	})
 end
 
-M.on_attach = function(client, bufnr)
-	if client.supports_method "textDocument/inlayHint" then
-		-- TODO: Fix this
-		-- vim.lsp.inlay_hint.enable(bufnr, true)
-	end
-end
-
 function M.common_capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true

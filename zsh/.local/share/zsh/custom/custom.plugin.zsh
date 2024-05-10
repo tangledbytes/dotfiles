@@ -1,9 +1,9 @@
 # Cutom aliases =====
-alias vim="nvim"
 alias c="code ."
 alias gc="git commit -v -s"
 alias lg="lazygit"
 alias rnd="alacritty msg create-window -e ssh -t utkarsh@rnd"
+alias n="nvim ."
 
 # Custom functions =====
 function ccd() {
