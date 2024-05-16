@@ -52,7 +52,7 @@ function tmux_session(){
 			exit 1
 		fi
 
-		if [[ ! "$session_wd" = "$choice" ]]; then
+		if [[ ! "$session_wd" -ef "$choice" ]]; then
 			# The session exists but with different path - create a new session
 			session="$(generate_session_name "$session")"
 			new_tmux_session "$session" "$choice"
@@ -100,12 +100,19 @@ function tscore(){
 }
 
 function zts(){
+	local input
+	input="$(realpath $1)"
+	if [ ! "$?" -eq 0 ]; then
+		echo "failed to generate full path"
+		exit 1
+	fi
+
 	if [ -e "$HOME/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh" ];
 	then
 		source ~/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh
 
 		local choice
-		choice="$(zshz 2>&1 -e "$1")"
+		choice="$(zshz 2>&1 -e "$input")"
 		if [ ! "$?" -eq 0 ]; then
 			echo "no directory found - use ts"
 			exit 0
