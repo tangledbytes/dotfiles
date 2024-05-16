@@ -100,8 +100,6 @@ function tscore(){
 }
 
 function zts(){
-	local input
-	input="$(realpath $1)"
 	if [ ! "$?" -eq 0 ]; then
 		echo "failed to generate full path"
 		exit 1
@@ -112,7 +110,7 @@ function zts(){
 		source ~/.local/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh
 
 		local choice
-		choice="$(zshz 2>&1 -e "$input")"
+		choice="$(zshz 2>&1 -e "$1")"
 		if [ ! "$?" -eq 0 ]; then
 			echo "no directory found - use ts"
 			exit 0
