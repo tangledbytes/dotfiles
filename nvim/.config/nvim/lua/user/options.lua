@@ -46,6 +46,9 @@ vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 
+vim.cmd([[set listchars=eol:!,tab:>=,trail:.,space:.]])
+vim.cmd([[set list]])
+
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
