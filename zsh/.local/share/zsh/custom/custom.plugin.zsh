@@ -66,6 +66,32 @@ function nf() {
 	fi
 }
 
+function drnd() {
+	local docker_pth="$(which docker)"
+	local container_name="ide-x86"
+
+	if [[ $(docker ps -a --filter="name=$container_name" --filter "status=exited" | grep -w "$container_name") ]]; then
+		echo "Container exists but exited - Restarting ..."
+		"$docker_pth" start "$container_name"
+	elif [[ $(docker ps -a --filter="name=$container_name" --filter "status=running" | grep -w "$container_name") ]]; then
+	else
+		echo "Container doesn't exists - Creating..."
+		"$docker_pth" run -d \
+			--privileged \
+			--rm \
+			--name ide-x86 \
+			--hostname "$container_name" \
+			-v "$HOME/dev":/root/dev \
+			--platform linux/amd64 \
+			utkarsh23/uide
+	fi
+
+	alacritty msg create-window -e \
+		"$docker_pth" exec -it \
+			--detach-keys 'ctrl-e,e' "$container_name" \
+				zsh -c "exec tmux new-session -A -D -c ~ -s $container_name-home"
+}
+
 # SETUP ITERM2 INTEGRATION ===================================================================
 # if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
 #   source "${HOME}/.iterm2_shell_integration.zsh"
