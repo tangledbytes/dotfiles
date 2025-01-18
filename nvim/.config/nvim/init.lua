@@ -24,9 +24,6 @@ spec "user.diffview"
 spec "user.lsp-progress"
 spec "user.lualine"
 
-spec "user.navic"
-spec "user.breadcrumbs"
-
 spec "user.alpha"
 spec "user.indentline"
 

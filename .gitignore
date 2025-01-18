@@ -2,3 +2,4 @@ zsh/.local/share/zsh/plugins
 Goals.md
 **/packer_compiled.lua
 tmux/.config/tmux/plugins
+karabiner/.config/karabiner/automatic_backups

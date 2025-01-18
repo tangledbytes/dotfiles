@@ -9,13 +9,12 @@ function M.config()
 	local servers = {
 		"cssls",
 		"html",
-		"tsserver",
+		"ts_ls",
 		"bashls",
 		"jsonls",
 		"clangd",
 		"gopls",
 		"rust_analyzer",
-		"tsserver",
 		"lua_ls",
 	}
 

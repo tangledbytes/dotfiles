@@ -1,7 +1,8 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
-		'linrongbin16/lsp-progress.nvim'
+		'linrongbin16/lsp-progress.nvim',
+		'SmiteshP/nvim-navic',
 	}
 }
 
@@ -60,20 +61,63 @@ function M.config()
 	require("lualine").setup({
 		options = {
 			theme = theme,
+			disabled_filetypes = {
+				statusline = {},
+				winbar = {
+					"help",
+					"startify",
+					"dashboard",
+					"packer",
+					"neogitstatus",
+					"NvimTree",
+					"Trouble",
+					"alpha",
+					"lir",
+					"Outline",
+					"spectre_panel",
+					"toggleterm",
+				},
+			},
 		},
 		sections = {
-			lualine_a = {},
+			lualine_a = { "mode" },
 			lualine_b = { "branch" },
 			lualine_c = {
 				function()
 					return require('lsp-progress').progress()
 				end
 			},
-			lualine_x = { "filetype" },
+			lualine_x = {},
 			lualine_y = { "progress" },
+			lualine_z = { "location" },
+		},
+		winbar = {
+			lualine_a = { "diagnostics" },
+			lualine_b = {
+				{
+					"filename",
+					path = 1,
+				}
+			},
+			lualine_c = {},
+			lualine_x = {},
+			lualine_y = {},
 			lualine_z = {},
 		},
-		extensions = { "quickfix", "man", "fugitive", "nvim-tree" },
+		inactive_winbar = {
+			lualine_a = { "diagnostics" },
+			lualine_b = {
+				{
+					"filename",
+					path = 1,
+				}
+			},
+			lualine_c = {},
+			lualine_x = {},
+			lualine_y = {},
+			lualine_z = {},
+		},
+		extensions = { "quickfix", "man", "nvim-tree", "fzf", "lazy" },
 	})
 
 	vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
