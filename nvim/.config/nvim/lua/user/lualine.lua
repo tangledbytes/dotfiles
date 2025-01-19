@@ -60,7 +60,8 @@ local theme = {
 function M.config()
 	require("lualine").setup({
 		options = {
-			theme = theme,
+			-- theme = theme,
+			theme = 'onedark',
 			disabled_filetypes = {
 				statusline = {},
 				winbar = {

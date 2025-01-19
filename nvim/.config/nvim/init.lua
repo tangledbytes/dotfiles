@@ -4,7 +4,11 @@ require "user.options"
 require "user.keymaps"
 
 -- Lazy plugins
-spec "user.colorscheme"
+-- spec "user.colorscheme.gruvbox"
+-- spec "user.colorscheme.solarized"
+-- spec "user.colorscheme.solarizedosaka"
+-- spec "user.colorscheme.oxocarbon"
+spec "user.colorscheme.onedark"
 spec "user.devicons"
 
 spec "user.telescope"
