@@ -6,6 +6,12 @@ alias rnd="alacritty msg create-window -e ssh -t utkarsh@rnd"
 alias n="nvim ."
 alias xssh="alacritty msg create-window -e ssh -t"
 
+# Alias overrides for mac
+if [ "$(uname)" == "Darwin" ]; then
+	alias rnd="open -n -a Ghostty --args -e 'ssh -t utkarsh@rnd tmux -u new-session -s home -A -c ~'"
+	alias xssh="open -n -a Ghostty --args -e 'ssh -t"
+fi
+
 # Custom functions =====
 function ccd() {
   mkdir -p $1 && cd $1

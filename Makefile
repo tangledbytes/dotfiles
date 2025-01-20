@@ -9,6 +9,7 @@ setup: seed
 	stow -t $(HOME)/bin bin
 	stow -t $(HOME) tmux
 	stow -t $(HOME) alacritty
+	stow -t $(HOME) ghostty
 	@if [ "$(OS)" = "Darwin" ]; then \
 		echo "Setting up MacOS specific dotfiles"; \
 		stow -t $(HOME) karabiner; \
