@@ -7,7 +7,7 @@ alias n="nvim ."
 alias xssh="alacritty msg create-window -e ssh -t"
 
 # Alias overrides for mac
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
 	alias rnd="open -n -a Ghostty --args -e 'ssh -t utkarsh@rnd tmux -u new-session -s home -A -c ~'"
 	alias xssh="open -n -a Ghostty --args -e 'ssh -t"
 fi
