@@ -173,13 +173,14 @@ function M.config()
 	local servers = {
 		"cssls",
 		"html",
-		"ts_ls",
+		-- "ts_ls",
 		"bashls",
 		"jsonls",
 		"clangd",
 		"gopls",
 		"rust_analyzer",
 		"lua_ls",
+		"tsserver",
 	}
 
 	local default_diagnostic_config = {
