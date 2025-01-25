@@ -46,8 +46,7 @@ vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 
-vim.cmd([[set listchars=eol:!,tab:>=,trail:.,space:.]])
-vim.cmd([[set list]])
+vim.cmd([[set listchars=tab:>=,trail:.,space:.]])
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -60,4 +59,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 			timeout = 40,
 		})
 	end,
+})
+
+local indentchars_group = vim.api.nvim_create_augroup('FileTypeSettings', { clear = true })
+local listfts = { javascript = true, typescript = true }
+vim.api.nvim_create_autocmd('BufEnter',{
+	group = indentchars_group,
+	pattern = '*',
+	callback = function()
+		local ft = vim.bo.filetype
+		if listfts[ft] ~= nil then
+			vim.opt_local.list = true
+		end
+	end
 })

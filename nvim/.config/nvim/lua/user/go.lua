@@ -22,6 +22,9 @@ function M.config()
 
     require("go").setup({
 		lsp_keymaps = false,
+		lsp_inlay_hints = {
+			enable = false
+		},
 		lsp_cfg = {
 			settings = {
 				gopls = {
