@@ -1,10 +1,11 @@
-theme = GruvboxDarkHard
+theme = "UOneHalfDark"
 font-family = "CaskaydiaCove Nerd Font"
 font-size = 15
 window-decoration = false
 background-opacity = 0.90
 background-blur-radius = 15
-window-padding-x = 8
-window-padding-y = 8
+window-padding-x = 5
+window-padding-y = 5
 command = /bin/zsh -l -c "tmux new-session -A -D -c ~ -s home"
 quit-after-last-window-closed = true
+background = #1b1b1b
