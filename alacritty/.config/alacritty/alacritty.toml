@@ -1,6 +1,7 @@
+[general]
 import = ["~/.config/alacritty/gruvbox-dark.toml"]
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 args = ["-l", "-c", "tmux new-session -A -D -c ~ -s home"]
 
@@ -9,13 +10,13 @@ TERM = "xterm-256color"
 
 [window]
 decorations = "Buttonless"
-opacity = 1
-blur = false
+opacity = 0.85
+blur = true
 padding = { x = 8, y = 8 }
 option_as_alt = "OnlyLeft"
 
 [font]
 size = 15
-normal = { family = "CaskaydiaCove Nerd Font", style = "Regular" }
+normal = { family = "CaskaydiaCove Nerd Font", style = "SemiLight" }
 offset = { x = 0, y = 2 }
 
