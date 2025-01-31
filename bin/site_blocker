@@ -1,0 +1,11 @@
+#!/bin/bash
+
+site="$1"
+block_statement="127.0.0.1 $site"
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+grep -qxF "$block_statement" /etc/hosts || echo "$block_statement" >> /etc/hosts
