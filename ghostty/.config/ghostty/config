@@ -9,3 +9,8 @@ window-padding-y = 4
 command = /bin/zsh -l -c "tmux new-session -A -D -c ~ -s home"
 quit-after-last-window-closed = true
 background = #1b1b1b
+
+macos-option-as-alt = left
+
+keybind = alt+left=unbind
+keybind = alt+right=unbind
