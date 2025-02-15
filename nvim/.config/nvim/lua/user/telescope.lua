@@ -45,10 +45,16 @@ function M.config()
 			file_ignore_patterns = {
 				"^.git/",
 				"^node_modules/"
-			}
-
-			-- add custom mappings
-			-- mappings = {},
+			},
+			mappings = {
+				i = {
+					-- Map <C-l> to send results to the location list
+					["<C-l>"] = function(prompt_bufnr)
+					actions.send_to_loclist(prompt_bufnr)
+					actions.open_loclist(prompt_bufnr)  -- Optional: Open the location list after sending
+					end,
+				},
+			},
 		},
 		pickers = {
 			find_files = {
