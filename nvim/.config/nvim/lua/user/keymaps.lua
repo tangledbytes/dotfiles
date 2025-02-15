@@ -20,8 +20,11 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+
 keymap("n", "<", "<C-o>", opts)
 keymap("n", ">", "<C-i>", opts)
+
+keymap("n", "<C-_>", ":let @/=\"\"<CR>", opts)
 
 -- Resize with arrows
 keymap("n", "<A-j>", ":resize +2<CR>", opts)
