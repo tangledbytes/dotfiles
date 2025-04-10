@@ -10,6 +10,7 @@ setup: seed
 	stow -t $(HOME) tmux
 	stow -t $(HOME) alacritty
 	stow -t $(HOME) ghostty
+	stow -t $(HOME) wezterm
 	@if [ "$(OS)" = "Darwin" ]; then \
 		echo "Setting up MacOS specific dotfiles"; \
 		stow -t $(HOME) karabiner; \

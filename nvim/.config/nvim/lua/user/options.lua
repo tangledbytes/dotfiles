@@ -41,7 +41,9 @@ vim.g.loaded_netrwPlugin = 1
 -- # Neovide specific options
 vim.g.neovide_hide_mouse_when_typing = true     -- hide mouse when typing
 vim.g.neovide_remember_window_size = true       -- remember window size
-vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
+vim.g.neovide_transparency = 0.75
+vim.g.neovide_window_blurred = true
+-- vim.g.neovide_input_macos_alt_is_meta = true    -- fix alt key
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
