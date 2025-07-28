@@ -29,5 +29,14 @@
   "buffer_font_size": 14,
   "show_whitespaces": "all",
   "ui_font_size": 15,
-  "confirm_quit": true
+  "confirm_quit": true,
+  "format_on_save": "off",
+  "languages": {
+    "Go": {
+      "format_on_save": "on"
+    },
+    "Rust": {
+      "format_on_save": "on"
+    }
+  }
 }
