@@ -1,0 +1,33 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "icon_theme": "Colored Zed Icons Theme Dark",
+  "ssh_connections": [
+    {
+      "host": "rnd",
+      "username": "utkarsh",
+      "projects": [
+        {
+          "paths": ["~/dev/netcd"]
+        }
+      ]
+    }
+  ],
+  "theme": "XY-Zed",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "buffer_font_family": "CaskaydiaCove Nerd Font",
+  "buffer_font_size": 14,
+  "show_whitespaces": "all",
+  "ui_font_size": 15,
+  "confirm_quit": true
+}

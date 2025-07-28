@@ -1,0 +1,25 @@
+[
+  {
+    "bindings": {}
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {}
+  },
+  {
+    "context": "VimControl && !menu && vim_mode == normal",
+    "bindings": {
+      "space w": "workspace::Save",
+      "space s v": "pane::SplitVertical",
+      "space s h": "pane::SplitHorizontal",
+      "space x": "pane::CloseAllItems",
+      "space e": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "VimControl && !menu && vim_mode == visual",
+    "bindings": {
+      "space s": "pane::DeploySearch"
+    }
+  }
+]
