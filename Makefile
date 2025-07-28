@@ -11,6 +11,7 @@ setup: seed
 	stow -t $(HOME) alacritty
 	stow -t $(HOME) ghostty
 	stow -t $(HOME) wezterm
+	stow -t $(HOME) zed
 	@if [ "$(OS)" = "Darwin" ]; then \
 		echo "Setting up MacOS specific dotfiles"; \
 		stow -t $(HOME) karabiner; \
