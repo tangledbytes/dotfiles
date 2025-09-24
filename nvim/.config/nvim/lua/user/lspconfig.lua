@@ -181,7 +181,6 @@ function M.config()
 		"rust_analyzer",
 		"lua_ls",
 		"tsserver",
-		"zls",
 	}
 
 	local default_diagnostic_config = {
