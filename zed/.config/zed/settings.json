@@ -58,11 +58,6 @@
     "tab_bar.background": "#00000010",
     "panel.background": "#00000010",
     "border": "#00000000",
-    "border.variant": "#00000000",
-    "scrollbar.track.border": "#00000000",
-    "scrollbar.track.background": "#00000000",
-    "scrollbar.thumb.background": "#00000000",
-    "scrollbar.thumb.border": "#FFFFFF90",
-    "editor.active_line.background": "#00000000"
+    "border.variant": "#00000000"
   }
 }
