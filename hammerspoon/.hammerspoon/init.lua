@@ -6,7 +6,6 @@ hs.hotkey.bind(Hyper, "R", function()
   hs.reload()
 end)
 
-require("window")
 require("spotify")
 require("opener")
 require("wmode")
