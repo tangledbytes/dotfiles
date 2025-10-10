@@ -4,13 +4,10 @@ font-style = Bold
 font-size = 14
 font-thicken = false
 
-# adjust-underline-position = 40%
-# adjust-underline-thickness = -60%
-
 cursor-style = block
 cursor-style-blink = false
 
-background-opacity = 0.80
+background-opacity = 0.85
 background-blur-radius = 75
 
 window-padding-x = 4
@@ -20,7 +17,7 @@ confirm-close-surface = false
 clipboard-paste-protection = false
 unfocused-split-opacity = 1.0
 
-window-decoration = client
+scrollback-limit = 66635
 
-scrollback-limit = 2147483647
-
+macos-window-buttons = "hidden"
+macos-titlebar-style = "tabs"
