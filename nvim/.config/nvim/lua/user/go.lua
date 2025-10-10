@@ -29,7 +29,7 @@ function M.config()
 			settings = {
 				gopls = {
 					analyses = {
-						fieldalignment = true,
+						-- fieldalignment = true, No Longer supported
 						shadow = true,
 					},
 					annotations = {
