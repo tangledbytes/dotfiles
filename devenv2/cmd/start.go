@@ -18,8 +18,8 @@ package cmd
 import (
 	"github.com/charmbracelet/log"
 	"github.com/spf13/cobra"
+	"github.com/tangledbytes/dotfiles/devenv2/pkg/docker"
 	"github.com/tangledbytes/dotfiles/devenv2/pkg/shell"
-	"github.com/tangledbytes/dotfiles/devenv2/pkg/shell/docker"
 )
 
 const dockerfile = `
