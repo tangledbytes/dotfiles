@@ -7,6 +7,10 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_buffer_font_size": 12.0,
+  "minimap": {
+    "show": "always"
+  },
   "icon_theme": "Colored Zed Icons Theme Dark",
   "ssh_connections": [
     {
@@ -29,7 +33,7 @@
   "buffer_font_size": 14,
   "show_whitespaces": "all",
   "ui_font_family": "ComicShannsMono Nerd Font",
-  "ui_font_size": 14,
+  "ui_font_size": 15,
   "confirm_quit": true,
   "format_on_save": "off",
   "languages": {
