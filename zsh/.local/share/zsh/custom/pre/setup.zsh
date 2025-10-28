@@ -7,6 +7,9 @@ export GPG_TTY=$(tty)
 export EDITOR=nvim
 export CLICOLOR=1 # Force color is ls output
 
+# Force color on man pages
+export MANPAGER="/usr/bin/less -R --use-color -Ddg -Du+y"
+
 # SETUP ZSH OPTIONS ==========================================================================
 setopt autocd
 ## ZSH HISTORY OPTIONS
