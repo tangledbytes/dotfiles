@@ -18,5 +18,4 @@ option_as_alt = "OnlyLeft"
 [font]
 size = 14
 normal = { family = "ComicShannsMono Nerd Font", style = "Bold" }
-offset = { x = 0, y = 2 }
 
