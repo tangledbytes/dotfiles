@@ -111,8 +111,17 @@ function zts(){
 			exit 0
 		fi
 		tmux_session "$choice"
+	elif [ -n "$(command -v zoxide)" ];
+	then
+		local choice
+		choice="$(zoxide query -l -s "$1" | awk 'NR==1 {print $2}')"
+		if [ -z "$choice" ]; then
+			echo "no directory found - use ts"
+			exit 0
+		fi
+		tmux_session "$choice"
 	else
-		echo "zsh-z plugin missing"
+		echo "zsh-z plugin and zoxide missing"
 		exit 1
 	fi
 }
