@@ -17,7 +17,7 @@ confirm-close-surface = false
 clipboard-paste-protection = false
 unfocused-split-opacity = 1.0
 
-scrollback-limit = 66635
+scrollback-limit = 536870912
 
 macos-window-buttons = "hidden"
 macos-titlebar-style = "tabs"
