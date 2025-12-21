@@ -1,4 +1,4 @@
-theme = "UOneHalfDark"
+theme = "Gruvbox Dark Hard"
 font-family = "ComicShannsMono Nerd Font"
 font-style = Bold
 font-size = 14
@@ -7,11 +7,11 @@ font-thicken = false
 cursor-style = block
 cursor-style-blink = false
 
-background-opacity = 0.85
+background-opacity = 0.90
 background-blur-radius = 75
 
 window-padding-x = 4
-window-padding-y = 4
+window-padding-y = 2,0
 
 confirm-close-surface = false
 clipboard-paste-protection = false
@@ -19,5 +19,6 @@ unfocused-split-opacity = 1.0
 
 scrollback-limit = 536870912
 
-macos-window-buttons = "hidden"
-macos-titlebar-style = "tabs"
+#macos-window-buttons = "hidden"
+#macos-titlebar-style = "tabs"
+macos-titlebar-style = hidden

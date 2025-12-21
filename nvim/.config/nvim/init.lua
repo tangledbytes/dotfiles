@@ -4,11 +4,11 @@ require "user.options"
 require "user.keymaps"
 
 -- Lazy plugins
--- spec "user.colorscheme.gruvbox"
+spec "user.colorscheme.gruvbox"
 -- spec "user.colorscheme.solarized"
 -- spec "user.colorscheme.solarizedosaka"
 -- spec "user.colorscheme.oxocarbon"
-spec "user.colorscheme.onedark"
+-- spec "user.colorscheme.onedark"
 spec "user.devicons"
 
 spec "user.telescope"
@@ -29,7 +29,7 @@ spec "user.lsp-progress"
 spec "user.lualine"
 
 spec "user.alpha"
-spec "user.indentline"
+-- spec "user.indentline"
 
 spec "user.nvimtree"
 

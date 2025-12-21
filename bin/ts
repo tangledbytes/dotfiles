@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-TS_DATA_FILE_NAME=".ts.data"
-TS_DATA_FILE="$HOME/$TS_DATA_FILE_NAME"
-
 function generate_session_name(){
     local name="$1"
     local base="${name%-*}"  # Remove the part after the last dash (if exists)
@@ -62,40 +59,19 @@ function tmux_session(){
 	attach_tmux_session "$session"
 }
 
-function add(){
-	grep -q "$(pwd)" "$TS_DATA_FILE"
-	if [ "$?" -eq 0 ]; then
-		echo "$(pwd) already exists"
-	else
-		echo "$(pwd)" >> "$TS_DATA_FILE"
-	fi
-}
-
-function generate(){
-	fd -t d -c never --exact-depth 1 . "$(pwd)" >> "$TS_DATA_FILE"
-}
-
-function cleanup(){
-	if [ -f "$TS_DATA_FILE" ]; then
-		awk '!seen[$0]++' "$TS_DATA_FILE" > "$TMPDIR$TS_DATA_FILE_NAME"
-		mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
-	fi
-}
-
-function validate(){
-	cat ~/.ts.data | xargs -I{} sh -c "[ -d {} ] && (echo {} >> $TMPDIR$TS_DATA_FILE_NAME)"
-	mv "$TMPDIR$TS_DATA_FILE_NAME" "$TS_DATA_FILE"
-}
-
 function tscore(){
-	if [ -f "$TS_DATA_FILE" ]; then
+	if [ -n "$(command -v zoxide)" ];
+	then
 		local choice
-		choice="$(cat "$TS_DATA_FILE" | fzf)"
-		if [ ! "$?" -eq 0 ]; then
+		choice="$(zoxide query -l | fzf)"
+		if [ -z "$choice" ]; then
+			echo "no directory found - use ts"
 			exit 0
 		fi
-
 		tmux_session "$choice"
+	else
+		echo "zoxide missing"
+		exit 1
 	fi
 }
 
@@ -126,42 +102,21 @@ function zts(){
 	fi
 }
 
+function ts_init(){
+	tmux new-session -A -D -c ~ -s home
+}
+
 function helpmsg(){
-	echo "Usage: ts [dirname]"
-	echo "Flags:"
-	printf "  -a, --add     \t Add the current directory to the registry\n"
-	printf "  -c, --clean   \t Clean the ts data file\n"
-	printf "  -g, --generate\t Add data generated from the CWD to the ts data file\n"
-	printf "  -h, --help    \t Print help message\n"
-	printf "  -s, --show    \t Show the ts metadata\n"
-	printf "  -v, --validate\t Validate the ts data file\n"
+	echo "Usage: ts {init | [dirname]}"
 }
 
 function main(){
-	if [[ "$1" = "-a" || "$1" = "--add" ]];
-	then
-		add
-	elif [[ "$1" = "-c" || "$1" = "--clean" ]];
-	then
-		cleanup
-	elif [[ "$1" = "-g" || "$1" = "--generate" ]];
-	then
-		generate
-	elif [[ "$1" = "-h" || "$1" = "--help" ]];
-	then
-		helpmsg
-	elif [[ "$1" = "-s" || "$1" = "--show" ]];
-	then
-		if [ -f "$HOME/.ts.data" ];
-		then
-			cat ~/.ts.data
-		fi
-	elif [[ "$1" = "-v" || "$1" = "--validate" ]];
-	then
-		validate
-	elif [[ "$1" = "" ]];
+	if [[ "$1" = "" ]];
 	then
 		tscore
+	elif [[ "$1" = "init" ]];
+	then
+		ts_init
 	else
 		zts "$1"
 	fi
